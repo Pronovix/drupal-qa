@@ -1,0 +1,70 @@
+{
+    "name": "pronovix/drupal-qa",
+    "type": "composer-plugin",
+    "description": "QA tools for Drupal.",
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "php": "^7.1",
+        "behat/mink": "dev-master#153e4bb",
+        "bex/behat-screenshot": "^1.2",
+        "composer-plugin-api": "^1.1",
+        "cweagans/composer-patches": "^1.6.5",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+        "drupal/drupal-extension": "^3.4",
+        "drush/drush": "^9.4",
+        "friendsoftwig/twigcs": "^3.1",
+        "instaclick/php-webdriver": "^1.4.5",
+        "localheinz/composer-normalize": "^1.2",
+        "mglaman/drupal-check": "^1.0.12",
+        "phpunit/phpunit": "^6.5",
+        "pronovix/composer-logger": "^2.0",
+        "slevomat/coding-standard": "^5.0",
+        "webflo/drupal-core-require-dev": "~8"
+    },
+    "require-dev": {
+        "composer/composer": "^1.7.3",
+        "friendsofphp/php-cs-fixer": "^2.15",
+        "vimeo/psalm": "^3.2"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.x-dev"
+        },
+        "class": "Pronovix\\DrupalQa\\Composer\\Plugin",
+        "composer-exit-on-patch-failure": true,
+        "patches": {
+            "bex/behat-screenshot": {
+                "Do not try to take a screenshot is session has not started yet": "https://github.com/elvetemedve/behat-screenshot/pull/49.diff"
+            },
+            "drupal/core": {
+                "Exclude directories from PHPUnit discovery": "https://www.drupal.org/files/issues/2019-08-13/drupal-ignore-directories-in-tests-2943172-56-8.7.x.patch"
+            },
+            "mglaman/drupal-check": {
+                "Introduce new --drupal-root option": "https://github.com/mglaman/drupal-check/pull/98.diff"
+            },
+            "mglaman/phpstan-drupal": {
+                "Exclude build directory from discovery": "https://github.com/mglaman/phpstan-drupal/pull/85.diff"
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Pronovix\\DrupalQa\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "analyze": "psalm --config=psalm.xml.dist --show-info=false --stats",
+        "check-style": "php-cs-fixer fix --dry-run",
+        "fix-style": "php-cs-fixer fix"
+    },
+    "_comment": [
+        "instaclick/php-webdriver:^1.4.5 The same minimum version that Drupal core requires at this moment: https://github.com/webflo/drupal-core-strict/blob/a85e9e9f04a26c903ffddec77d56c184eae33212/composer.json#L67. This is required to fix 'Exception: invalid argument: File not found' in lowest testing.",
+        "behat/mink: dev-master#153e4bb This is a newer commit than what Drupal requires at this moment and it already contains the fix for this: https://github.com/minkphp/Mink/pull/760",
+        "composer/composer is not a dev requirement because this library depends on code from that"
+    ]
+}

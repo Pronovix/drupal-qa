@@ -1,0 +1,49 @@
+<?php
+
+$header = <<<HEADER
+Copyright (C) 2019 PRONOVIX GROUP BVBA.
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+ *
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+ *
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
+USA.
+HEADER;
+
+$finder = PhpCsFixer\Finder::create()
+    ->files()
+    ->name('*.php')
+    ->name('*.inc')
+    ->in([__DIR__ . '/src']);
+
+return PhpCsFixer\Config::create()
+    ->setRiskyAllowed(true)
+    ->setRules([
+        '@PSR2' => true,
+        '@Symfony' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'class_definition' => ['singleLine' => false, 'singleItemSingleLine' => true],
+        'concat_space' => ['spacing' => 'one'],
+        'declare_strict_types' => true,
+        'header_comment' => ['header' => $header, 'commentType' => 'PHPDoc'],
+        'general_phpdoc_annotation_remove' => ['author', 'package'],
+        'ordered_class_elements' => true,
+        'ordered_imports' => true,
+        'phpdoc_align' => false,
+        'phpdoc_annotation_without_dot' => false,
+        'phpdoc_indent' => false,
+        'phpdoc_inline_tag' => false,
+        'phpdoc_order' => true,
+        'self_accessor' => false,
+        'void_return' => true,
+    ])
+    ->setFinder($finder);
