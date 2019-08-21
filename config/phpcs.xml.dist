@@ -8,7 +8,9 @@
     <exclude-pattern>\.md</exclude-pattern>
     <!--  Prevent infinite recursion if PHPCS is running inside the container where the current folder is also symlinked
     to build/modules/drupal_module -->
-    <exclude-pattern>*/build/*</exclude-pattern>
+    <exclude-pattern>*/modules/*/build/*</exclude-pattern>
+    <exclude-pattern>*/profiles/*/build/*</exclude-pattern>
+    <exclude-pattern>*/themes/*/build/*</exclude-pattern>
     <!-- Also always exclude files in the drupal-dev folder. -->
     <exclude-pattern>*/drupal-dev/*</exclude-pattern>
 
