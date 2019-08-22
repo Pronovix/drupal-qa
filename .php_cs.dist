@@ -23,7 +23,8 @@ $finder = PhpCsFixer\Finder::create()
     ->files()
     ->name('*.php')
     ->name('*.inc')
-    ->in([__DIR__ . '/src']);
+    ->in([__DIR__ . '/src'])
+    ->notPath('Drupal/PhpUnit/bootstrap.php');
 
 return PhpCsFixer\Config::create()
     ->setRiskyAllowed(true)

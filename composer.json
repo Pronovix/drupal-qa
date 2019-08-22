@@ -39,9 +39,6 @@
             "bex/behat-screenshot": {
                 "Do not try to take a screenshot is session has not started yet": "https://github.com/elvetemedve/behat-screenshot/pull/49.diff"
             },
-            "drupal/core": {
-                "Exclude directories from PHPUnit discovery": "https://www.drupal.org/files/issues/2019-08-13/drupal-ignore-directories-in-tests-2943172-56-8.7.x.patch"
-            },
             "mglaman/drupal-check": {
                 "Introduce new --drupal-root option": "https://github.com/mglaman/drupal-check/pull/98.diff"
             },
