@@ -112,5 +112,11 @@
     <rule ref="SlevomatCodingStandard.Commenting.InlineDocCommentDeclaration"/>
     <rule ref="SlevomatCodingStandard.ControlStructures.UselessIfConditionWithReturn"/>
     <rule ref="SlevomatCodingStandard.ControlStructures.UselessTernaryOperator"/>
+    <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
+        <properties>
+            <!-- This unifies usage of {@inheritdoc} -->
+            <property name="ignoredAnnotationNames" type="array" value="@file" />
+        </properties>
+    </rule>
 
 </ruleset>
