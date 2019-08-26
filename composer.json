@@ -2,6 +2,14 @@
     "name": "pronovix/drupal-qa",
     "type": "composer-plugin",
     "description": "QA tools for Drupal.",
+    "keywords": [
+        "Composer",
+        "Drupal",
+        "QA",
+        "code style",
+        "code quality",
+        "testing"
+    ],
     "license": "GPL-2.0-or-later",
     "require": {
         "php": "^7.1",
