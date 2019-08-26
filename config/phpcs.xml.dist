@@ -29,10 +29,10 @@
         <severity>0</severity>
     </rule>
 
-    <rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration"/>
-    <!-- Defining type of an array parameter in a hook implementation's doc block should not be required. -->
-    <rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification">
-        <severity>0</severity>
+    <rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration">
+        <!-- Defining the type of an array parameter or return type in a hook implementation's doc block should not be required. -->
+        <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification"/>
+        <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification"/>
     </rule>
 
     <rule ref="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation"/>
