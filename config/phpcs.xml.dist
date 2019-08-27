@@ -36,7 +36,6 @@
     </rule>
 
     <rule ref="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation"/>
-    <rule ref="SlevomatCodingStandard.Classes.DisallowLateStaticBindingForConstants"/>
     <rule ref="SlevomatCodingStandard.ControlStructures.AssignmentInCondition"/>
     <rule ref="SlevomatCodingStandard.ControlStructures.RequireNullCoalesceOperator"/>
 
@@ -115,7 +114,7 @@
     <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
         <properties>
             <!-- This unifies usage of {@inheritdoc} -->
-            <property name="ignoredAnnotationNames" type="array" value="@file" />
+            <property name="ignoredAnnotationNames" type="array" value="@file,@group" />
         </properties>
     </rule>
 
