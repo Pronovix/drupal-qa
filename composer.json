@@ -23,7 +23,7 @@
         "friendsoftwig/twigcs": "^3.1",
         "instaclick/php-webdriver": "^1.4.5",
         "localheinz/composer-normalize": "^1.2",
-        "mglaman/drupal-check": "^1.0.12",
+        "mglaman/drupal-check": "^1.0.13",
         "phpunit/phpunit": "^6.5",
         "pronovix/composer-logger": "^2.0",
         "slevomat/coding-standard": "^5.0",
@@ -46,9 +46,6 @@
         "patches": {
             "bex/behat-screenshot": {
                 "Do not try to take a screenshot is session has not started yet": "https://github.com/elvetemedve/behat-screenshot/pull/49.diff"
-            },
-            "mglaman/drupal-check": {
-                "Introduce new --drupal-root option": "https://github.com/mglaman/drupal-check/pull/98.diff"
             },
             "mglaman/phpstan-drupal": {
                 "Exclude build directory from discovery": "https://github.com/mglaman/phpstan-drupal/pull/85.diff"
