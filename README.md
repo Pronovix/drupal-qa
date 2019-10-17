@@ -27,8 +27,3 @@ Set of modules and libraries and configurations that helps quality assurance in 
 * Behat Drupal Extension: https://github.com/jhedstrom/drupalextension
 
 Plus various other packages (like Drupal Coder, PHPUnit, etc.) required by [webflo/drupal-core-require-dev](https://github.com/webflo/drupal-core-require-dev).
-
-## Notes
-
-* [Introduce new --drupal-root option](https://github.com/mglaman/drupal-check/pull/98.diff) patch is required for `mglaman/drupal-check` if
-you use a monorepo structure where your modules are symlinked from the monorepo root.
