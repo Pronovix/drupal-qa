@@ -29,6 +29,9 @@
         "slevomat/coding-standard": "^5.0",
         "webflo/drupal-core-require-dev": "~8"
     },
+    "conflict": {
+        "phpstan/phpstan": ">0.11.16"
+    },
     "require-dev": {
         "composer/composer": "^1.7.3",
         "friendsofphp/php-cs-fixer": "^2.15",
@@ -67,6 +70,7 @@
     "_comment": [
         "instaclick/php-webdriver:^1.4.5 The same minimum version that Drupal core requires at this moment: https://github.com/webflo/drupal-core-strict/blob/a85e9e9f04a26c903ffddec77d56c184eae33212/composer.json#L67. This is required to fix 'Exception: invalid argument: File not found' in lowest testing.",
         "behat/mink: dev-master#153e4bb This is a newer commit than what Drupal requires at this moment and it already contains the fix for this: https://github.com/minkphp/Mink/pull/760",
-        "composer/composer is not a dev requirement because this library depends on code from that"
+        "composer/composer is not a dev requirement because this library depends on code from that",
+        "Added a PHPStan version conflict to mitigate https://github.com/mglaman/drupal-check/issues/111"
     ]
 }
