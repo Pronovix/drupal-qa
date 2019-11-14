@@ -7,7 +7,7 @@ Set of modules and libraries and configurations that helps quality assurance in 
 * `composer drupalqa:phpcs:config-install` - installs Pronovix's PHP CodeSniffer configuration for Drupal projects
 (the plugin tries to install it automatically when it gets installed)
 * `composer drupalqa:testrunner:download` - installs latest version of Pronovix's TestRunner Go application from [Github](https://github.com/Pronovix/testrunner).
-(You can avoid API rate limit error if you [configure our Github OAuth access token](https://getcomposer.org/doc/articles/troubleshooting.md#api-rate-limit-and-oauth-tokens).)
+(You can avoid API rate limit error if you [configure your Github OAuth access token](https://getcomposer.org/doc/articles/troubleshooting.md#api-rate-limit-and-oauth-tokens).)
 * `composer normalize` - Normalizes the composer.json (provided by `localheinz/composer-normalize`)
 * `./vendor/bin/drupal-check` - Checks Drupal 8 code for deprecations and code quality issues. (provided by `mglaman/drupal-check`)
 * `./vendor/bin/twigcs` - Checks TWIG files for violations on coding standards. (provided by `friendsoftwig/twigcs`)
