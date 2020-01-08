@@ -11,10 +11,9 @@
     <!-- Ignore directories with 3rd party libraries -->
     <exclude-pattern>*/node_modules/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
-    <!-- Do not check CSS/JS files in (our) themes because they are usually minified by an external tool like
-    Gulp. Minified CSS/JS cannot be parsed and it could raise an Internal.Tokenizer.Exception warning. -->
-    <exclude-pattern>*/themes/**/*.css</exclude-pattern>
-    <exclude-pattern>*/themes/**/*.js</exclude-pattern>
+    <!-- Do not check CSS/JS files, it is done by Eslint instead.  -->
+    <exclude-pattern>**/*.css</exclude-pattern>
+    <exclude-pattern>**/*.js</exclude-pattern>
     <!-- Exclude Markdown files because Drupal.Files.TxtFileLineLength.TooLong should not be applied on them. -->
     <exclude-pattern>\.md</exclude-pattern>
 
