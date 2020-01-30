@@ -27,3 +27,7 @@ Set of modules and libraries and configurations that helps quality assurance in 
 * Behat Drupal Extension: https://github.com/jhedstrom/drupalextension
 
 Plus various other packages (like Drupal Coder, PHPUnit, etc.) required by [webflo/drupal-core-require-dev](https://github.com/webflo/drupal-core-require-dev).
+
+## Important Notes
+
+* Drupal Check is currently locked at 1.0.14 because 1.1.0 introduced a CI breaking change, see [the related github issue](https://github.com/mglaman/drupal-check/issues/131).
