@@ -159,6 +159,7 @@ function drupal_phpunit_populate_class_loader() {
   $loader->add('Drupal\\KernelTests', $core_tests_dir);
   $loader->add('Drupal\\FunctionalTests', $core_tests_dir);
   $loader->add('Drupal\\FunctionalJavascriptTests', $core_tests_dir);
+  $loader->add('Drupal\\TestTools', $core_tests_dir);
 
   if (!isset($GLOBALS['namespaces'])) {
     // Scan for arbitrary extension namespaces from core and contrib.
