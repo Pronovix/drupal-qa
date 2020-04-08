@@ -14,7 +14,7 @@
     "require": {
         "php": "^7.1",
         "behat/mink": "^1.8",
-        "bex/behat-screenshot": "^1.2",
+        "bex/behat-screenshot": "^1.2.9",
         "composer-plugin-api": "^1.1",
         "cweagans/composer-patches": "^1.6.5",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
@@ -44,9 +44,6 @@
         "class": "Pronovix\\DrupalQa\\Composer\\Plugin",
         "composer-exit-on-patch-failure": true,
         "patches": {
-            "bex/behat-screenshot": {
-                "Do not try to take a screenshot is session has not started yet": "https://github.com/elvetemedve/behat-screenshot/pull/49.diff"
-            },
             "mglaman/phpstan-drupal": {
                 "Exclude build directory from discovery": "https://github.com/mglaman/phpstan-drupal/pull/85.diff"
             }
@@ -65,8 +62,6 @@
         "fix-style": "php-cs-fixer fix"
     },
     "_comment": [
-        "instaclick/php-webdriver:^1.4.5 The same minimum version that Drupal core requires at this moment: https://github.com/webflo/drupal-core-strict/blob/a85e9e9f04a26c903ffddec77d56c184eae33212/composer.json#L67. This is required to fix 'Exception: invalid argument: File not found' in lowest testing.",
-        "behat/mink: ^1.8 This is a newer version than what Drupal 8.7 requires at this moment and it already contains the fix for this: https://github.com/minkphp/Mink/pull/760",
         "composer/composer is not a dev requirement because this library depends on code from that",
         "drupal/core-dev is here but the dependent package also must also require it otherwise it could happen that incorrect/unmatching versions gets installed with drupal/core and drupal/core-recommended"
     ]
