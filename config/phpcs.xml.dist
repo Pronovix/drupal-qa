@@ -115,5 +115,6 @@
             <property name="ignoredAnnotationNames" type="array" value="@file,@group" />
         </properties>
     </rule>
+    <rule ref="Squiz.Strings.DoubleQuoteUsage.NotRequired" />
 
 </ruleset>
