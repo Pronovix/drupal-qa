@@ -44,6 +44,9 @@
         "class": "Pronovix\\DrupalQa\\Composer\\Plugin",
         "composer-exit-on-patch-failure": true,
         "patches": {
+            "drupal/coder": {
+                "Add support of variadic type hinting and argument specification": "https://www.drupal.org/files/issues/2019-02-08/coder-variadics-2878783-5.patch"
+            },
             "mglaman/phpstan-drupal": {
                 "Exclude build directory from discovery": "https://github.com/mglaman/phpstan-drupal/pull/85.diff"
             }
