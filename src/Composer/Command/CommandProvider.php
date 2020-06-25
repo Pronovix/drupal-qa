@@ -24,8 +24,10 @@ declare(strict_types=1);
 namespace Pronovix\DrupalQa\Composer\Command;
 
 use Composer\Plugin\Capability\CommandProvider as BaseCommandProvider;
+use Composer\Plugin\PluginInterface;
 use Composer\Repository\Vcs\GitHubDriver;
 use Composer\Util\Filesystem as ComposerFileSystem;
+use Composer\Util\HttpDownloader;
 use Composer\Util\ProcessExecutor;
 use Composer\Util\RemoteFilesystem;
 use Pronovix\DrupalQa\Composer\Handler\PhpCsConfigInstaller;
@@ -75,12 +77,16 @@ final class CommandProvider implements BaseCommandProvider
      */
     public function getCommands(): array
     {
-        $remoteFilesystem = new RemoteFilesystem($this->io, $this->composer->getConfig());
-        $gitHubDriver = new GitHubDriver(['url' => 'https://github.com/' . TestRunnerDownloader::TESTRUNNER_REPO_NAME], $this->io, $this->composer->getConfig(), $this->process, $remoteFilesystem);
+        $remoteFileSystem = new RemoteFilesystem($this->io, $this->composer->getConfig());
+        if (version_compare(PluginInterface::PLUGIN_API_VERSION, '2.0', '<')) {
+            $gitHubDriver = new GitHubDriver(['url' => 'https://github.com/' . TestRunnerDownloader::TESTRUNNER_REPO_NAME], $this->io, $this->composer->getConfig(), $this->process, $remoteFileSystem);
+        } else {
+            $gitHubDriver = new GitHubDriver(['url' => 'https://github.com/' . TestRunnerDownloader::TESTRUNNER_REPO_NAME], $this->io, $this->composer->getConfig(), new HttpDownloader($this->io, $this->composer->getConfig()), $this->process);
+        }
 
         return [
             new InstallPhpCsConfigCommand(new PhpCsConfigInstaller($this->composer, $this->fileSystem, $this->logger), $this->logger),
-            new DownloadTestRunnerCommand(new TestRunnerDownloader($gitHubDriver, $remoteFilesystem, $this->io, $this->fileSystem, new Filesystem(), $this->logger), $this->logger),
+            new DownloadTestRunnerCommand(new TestRunnerDownloader($gitHubDriver, $remoteFileSystem, $this->io, $this->fileSystem, new Filesystem(), $this->logger), $this->logger),
         ];
     }
 }

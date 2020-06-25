@@ -84,6 +84,7 @@ final class TestRunnerDownloader
     {
         $this->composerFileSystem = $composerFileSystem;
         $this->logger = $logger;
+        // TODO Should we use HttpDownloader with Composer 2.x instead?
         $this->downloader = $remoteFilesystem;
         // Make sure the driver is initialized.
         $this->githubDriver = $gitHubDriver;
