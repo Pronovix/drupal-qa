@@ -49,7 +49,8 @@
         "composer-exit-on-patch-failure": true,
         "patches": {
             "drupal/coder": {
-                "Add support of variadic type hinting and argument specification": "https://www.drupal.org/files/issues/2019-02-08/coder-variadics-2878783-5.patch"
+                "Add support of variadic type hinting and argument specification": "https://www.drupal.org/files/issues/2019-02-08/coder-variadics-2878783-5.patch",
+                "Add support for semver version formatting in deprecation messages [This patch is this PR without changes on test files: https://github.com/pfrenssen/coder/pull/102]": "https://patches.pronovix.net/coder-add-support-for-semver-versoning-in-deprecations-Kcgrs1BD0NGzNP6AZDq8AfN5n6b0calAPq9naNEnZyQqJgO0oOiNyaYxZfbI0JOl.patch"
             },
             "mglaman/phpstan-drupal": {
                 "Exclude build directory from discovery": "https://github.com/mglaman/phpstan-drupal/pull/85.diff"
