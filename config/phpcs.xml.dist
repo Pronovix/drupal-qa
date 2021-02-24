@@ -13,8 +13,8 @@
     <exclude-pattern>*/node_modules/*</exclude-pattern>
     <exclude-pattern>*/vendor/*</exclude-pattern>
     <!-- Do not check CSS/JS files, it is done by Eslint instead.  -->
-    <exclude-pattern>**/*.css</exclude-pattern>
-    <exclude-pattern>**/*.js</exclude-pattern>
+    <exclude-pattern>\.css</exclude-pattern>
+    <exclude-pattern>\.js</exclude-pattern>
     <!-- Exclude Markdown files because Drupal.Files.TxtFileLineLength.TooLong should not be applied on them. -->
     <exclude-pattern>\.md</exclude-pattern>
 
