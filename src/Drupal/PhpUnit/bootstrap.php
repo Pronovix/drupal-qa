@@ -40,6 +40,7 @@
 
 use Drupal\Component\Assertion\Handle;
 use Drupal\Core\Composer\Composer;
+use Drupal\TestTools\PhpUnitCompatibility\PhpUnit8\ClassWriter;
 use PHPUnit\Runner\Version;
 use Pronovix\DrupalQa\Drupal\PhpUnit\DrupalExtensionFilterIterator;
 
@@ -73,12 +74,15 @@ function drupal_phpunit_find_extension_directories($scan_directory) {
  * Returns directories under which contributed extensions may exist.
  *
  * @param string $root
- *   Path to the root of the Drupal installation.
+ *   (optional) Path to the root of the Drupal installation.
  *
  * @return array
  *   An array of directories under which contributed extensions may exist.
  */
-function drupal_phpunit_contrib_extension_directory_roots($root) {
+function drupal_phpunit_contrib_extension_directory_roots($root = NULL) {
+  if ($root === NULL) {
+    $root = dirname(dirname(__DIR__));
+  }
   $paths = [
     $root . '/core',
     $root . '/',
@@ -86,10 +90,13 @@ function drupal_phpunit_contrib_extension_directory_roots($root) {
   $sites_path = $root . '/sites';
   // Note this also checks sites/../modules and sites/../profiles.
   foreach (scandir($sites_path) as $site) {
-    if ($site[0] === '.' || $site === 'simpletest' || !is_dir("$sites_path/$site")) {
+    if ($site[0] === '.' || $site === 'simpletest') {
       continue;
     }
-    $paths[] = "$sites_path/$site";
+    $path = "$sites_path/$site";
+    $paths[] = is_dir("$path/modules") ? realpath("$path/modules") : NULL;
+    $paths[] = is_dir("$path/profiles") ? realpath("$path/profiles") : NULL;
+    $paths[] = is_dir("$path/themes") ? realpath("$path/themes") : NULL;
   }
   return array_filter($paths, 'file_exists');
 }
@@ -104,7 +111,7 @@ function drupal_phpunit_contrib_extension_directory_roots($root) {
  *   An associative array of extension directories, keyed by their namespace.
  */
 function drupal_phpunit_get_extension_namespaces($dirs) {
-  $suite_names = ['Unit', 'Kernel', 'Functional', 'FunctionalJavascript'];
+  $suite_names = ['Unit', 'Kernel', 'Functional', 'Build', 'FunctionalJavascript'];
   $namespaces = [];
   foreach ($dirs as $extension => $dir) {
     if (is_dir($dir . '/src')) {
@@ -174,20 +181,23 @@ function drupal_phpunit_populate_class_loader() {
   }
 
   return $loader;
-};
+}
 
 // Do class loader population.
-drupal_phpunit_populate_class_loader();
+$loader = drupal_phpunit_populate_class_loader();
 
-// Ensure we have the correct PHPUnit version for the version of PHP.
-if (class_exists('\PHPUnit_Runner_Version')) {
-  $phpunit_version = \PHPUnit_Runner_Version::id();
+if (class_exists('Drupal\TestTools\PhpUnitCompatibility\PhpUnit8\ClassWriter')) {
+  ClassWriter::mutateTestBase($loader);
 }
-else {
-  $phpunit_version = Version::id();
+
+if (version_compare(Version::id(), '6.5', '<')) {
+  $message = "Minimum required PHPUnit version is 6.5.";
+  echo "\033[31m" . $message . "\n\033[0m";
+  exit(1);
 }
-if (!Composer::upgradePHPUnitCheck($phpunit_version)) {
-  $message = "PHPUnit testing framework version 6 or greater is required when running on PHP 7.0 or greater. Run the command 'composer run-script drupal-phpunit-upgrade' in order to fix this.";
+
+if (!Composer::upgradePHPUnitCheck(Version::id())) {
+  $message = "PHPUnit testing framework version and PHP version mismatch. Run the command 'composer run-script drupal-phpunit-upgrade' in order to fix this.";
   echo "\033[31m" . $message . "\n\033[0m";
   exit(1);
 }
@@ -209,23 +219,7 @@ mb_language('uni');
 date_default_timezone_set('Australia/Sydney');
 
 // Runtime assertions. PHPUnit follows the php.ini assert.active setting for
-// runtime assertions. By default this setting is on. Here we make a call to
-// make PHP 5 and 7 handle assertion failures the same way, but this call does
-// not turn runtime assertions on if they weren't on already.
+// runtime assertions. By default this setting is on. Ensure exceptions are
+// thrown if an assert fails, but this call does not turn runtime assertions on
+// if they weren't on already.
 Handle::register();
-
-// PHPUnit 4 to PHPUnit 6 bridge. Tests written for PHPUnit 4 need to work on
-// PHPUnit 6 with a minimum of fuss.
-if (version_compare($phpunit_version, '6.1', '>=')) {
-  class_alias('\PHPUnit\Framework\AssertionFailedError', '\PHPUnit_Framework_AssertionFailedError');
-  class_alias('\PHPUnit\Framework\Constraint\Count', '\PHPUnit_Framework_Constraint_Count');
-  class_alias('\PHPUnit\Framework\Error\Error', '\PHPUnit_Framework_Error');
-  class_alias('\PHPUnit\Framework\Error\Warning', '\PHPUnit_Framework_Error_Warning');
-  class_alias('\PHPUnit\Framework\ExpectationFailedException', '\PHPUnit_Framework_ExpectationFailedException');
-  class_alias('\PHPUnit\Framework\Exception', '\PHPUnit_Framework_Exception');
-  class_alias('\PHPUnit\Framework\MockObject\Matcher\InvokedRecorder', '\PHPUnit_Framework_MockObject_Matcher_InvokedRecorder');
-  class_alias('\PHPUnit\Framework\SkippedTestError', '\PHPUnit_Framework_SkippedTestError');
-  class_alias('\PHPUnit\Framework\TestCase', '\PHPUnit_Framework_TestCase');
-  class_alias('\PHPUnit\Util\Test', '\PHPUnit_Util_Test');
-  class_alias('\PHPUnit\Util\Xml', '\PHPUnit_Util_XML');
-}
