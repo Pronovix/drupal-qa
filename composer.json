@@ -52,7 +52,6 @@
         "composer-exit-on-patch-failure": true,
         "patches": {
             "drupal/core": {
-                "mkdir can fail in \\Drupal\\Core\\Test\\TestRunnerKernel::boot() because of a race condition [#3190859]": "https://git.drupalcode.org/project/drupal/-/commit/1450a79d115ec61e27c0f35895fb04b4523979a3.diff",
                 "file_scan_ignore_directories is ignored in kernel tests [#3190974]": "https://git.drupalcode.org/project/drupal/-/commit/92300d75eeb03105408f96d5064bd641168d6a82.diff",
                 "Fix 'Undefined index: value' when database connection issue occurs in tests [#3163925]": "https://git.drupalcode.org/project/drupal/-/merge_requests/212.diff",
                 "copy() can fail in FunctionalTestSetupTrait::prepareSettings() because of a race condition  [#3191369]": "https://git.drupalcode.org/project/drupal/-/merge_requests/218.diff"
