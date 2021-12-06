@@ -1,7 +1,8 @@
 {
     "name": "pronovix/drupal-qa",
-    "type": "composer-plugin",
     "description": "QA tools for Drupal.",
+    "license": "GPL-2.0-or-later",
+    "type": "composer-plugin",
     "keywords": [
         "Composer",
         "Drupal",
@@ -10,12 +11,16 @@
         "code quality",
         "testing"
     ],
-    "license": "GPL-2.0-or-later",
+    "_comment": [
+        "composer/composer is not a dev requirement because this library depends on code from that",
+        "drupal/core-dev is here but the dependent package also must also require it otherwise it could happen that incorrect/unmatching versions gets installed with drupal/core and drupal/core-recommended",
+        "phpstan/phpstan = 0.12.25 is required because newer versions print deprecation warning to stdout along with the json for the CI, causing CI jobs to fail"
+    ],
     "require": {
         "php": "^7.4.0",
+        "composer-plugin-api": "^1.1 || ^2.0",
         "behat/mink": "^1.8",
         "bex/behat-screenshot": "^1.2.9",
-        "composer-plugin-api": "^1.1 || ^2.0",
         "cweagans/composer-patches": "^1.7",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
         "drupal/core-dev": "~9.2.0",
@@ -30,13 +35,20 @@
         "pronovix/composer-logger": "^3.0",
         "slevomat/coding-standard": "^5.0"
     },
+    "require-dev": {
+        "composer/composer": "^1.7.3 || ^2.0",
+        "friendsofphp/php-cs-fixer": "^2.15"
+    },
     "conflict": {
         "drupal/coder": "<8.3.13",
         "squizlabs/php_codesniffer": ">3.5.6"
     },
-    "require-dev": {
-        "composer/composer": "^1.7.3 || ^2.0",
-        "friendsofphp/php-cs-fixer": "^2.15"
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Pronovix\\DrupalQa\\": "src/"
+        }
     },
     "config": {
         "platform": {
@@ -52,30 +64,18 @@
         "composer-exit-on-patch-failure": true,
         "patches": {
             "drupal/core": {
-                "file_scan_ignore_directories is ignored in kernel tests [#3190974]": "https://git.drupalcode.org/project/drupal/-/commit/92300d75eeb03105408f96d5064bd641168d6a82.diff",
                 "Fix 'Undefined index: value' when database connection issue occurs in tests [#3163925]": "https://git.drupalcode.org/project/drupal/-/merge_requests/212.diff",
-                "copy() can fail in FunctionalTestSetupTrait::prepareSettings() because of a race condition  [#3191369]": "https://git.drupalcode.org/project/drupal/-/merge_requests/218.diff"
+                "copy() can fail in FunctionalTestSetupTrait::prepareSettings() because of a race condition  [#3191369]": "https://git.drupalcode.org/project/drupal/-/merge_requests/218.diff",
+                "file_scan_ignore_directories is ignored in kernel tests [#3190974]": "https://git.drupalcode.org/project/drupal/-/commit/92300d75eeb03105408f96d5064bd641168d6a82.diff"
             },
             "mglaman/phpstan-drupal": {
                 "Exclude build directory from discovery": "https://github.com/mglaman/phpstan-drupal/pull/85.diff"
             }
         }
     },
-    "autoload": {
-        "psr-4": {
-            "Pronovix\\DrupalQa\\": "src/"
-        }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "scripts": {
         "analyze": "psalm --config=psalm.xml.dist --show-info=false --stats",
         "check-style": "php-cs-fixer fix --dry-run",
         "fix-style": "php-cs-fixer fix"
-    },
-    "_comment": [
-        "composer/composer is not a dev requirement because this library depends on code from that",
-        "drupal/core-dev is here but the dependent package also must also require it otherwise it could happen that incorrect/unmatching versions gets installed with drupal/core and drupal/core-recommended",
-        "phpstan/phpstan = 0.12.25 is required because newer versions print deprecation warning to stdout along with the json for the CI, causing CI jobs to fail"
-    ]
+    }
 }
