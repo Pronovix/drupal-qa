@@ -13,8 +13,7 @@
     ],
     "_comment": [
         "composer/composer is not a dev requirement because this library depends on code from that",
-        "drupal/core-dev is here but the dependent package also must also require it otherwise it could happen that incorrect/unmatching versions gets installed with drupal/core and drupal/core-recommended",
-        "phpstan/phpstan = 0.12.25 is required because newer versions print deprecation warning to stdout along with the json for the CI, causing CI jobs to fail"
+        "drupal/core-dev is here but the dependent package also must also require it otherwise it could happen that incorrect/unmatching versions gets installed with drupal/core and drupal/core-recommended"
     ],
     "require": {
         "php": "^7.4.0",
@@ -29,9 +28,9 @@
         "ergebnis/composer-normalize": "^2.13.0",
         "friendsoftwig/twigcs": "^3.1",
         "instaclick/php-webdriver": "^1.4.5",
-        "mglaman/drupal-check": "1.1.2",
+        "mglaman/drupal-check": "^1.2",
         "phpspec/prophecy-phpunit": "^2",
-        "phpstan/phpstan": "0.12.25",
+        "phpstan/phpstan": "^1.2",
         "pronovix/composer-logger": "^3.0",
         "slevomat/coding-standard": "^5.0"
     },
