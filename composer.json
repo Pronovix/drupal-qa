@@ -38,10 +38,6 @@
         "composer/composer": "^1.7.3 || ^2.0",
         "friendsofphp/php-cs-fixer": "^2.15"
     },
-    "conflict": {
-        "drupal/coder": "<8.3.13",
-        "squizlabs/php_codesniffer": ">3.5.6"
-    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
