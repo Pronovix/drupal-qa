@@ -33,10 +33,13 @@
         <severity>0</severity>
     </rule>
 
-    <rule ref="SlevomatCodingStandard.TypeHints.TypeHintDeclaration">
-        <!-- Defining the type of an array parameter or return type in a hook implementation's doc block should not be required. -->
-        <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableParameterTypeHintSpecification"/>
-        <exclude name="SlevomatCodingStandard.TypeHints.TypeHintDeclaration.MissingTraversableReturnTypeHintSpecification"/>
+    <rule ref="SlevomatCodingStandard.TypeHints.ParameterTypeHint">
+        <!-- Defining the type of an array parameter in a hook implementation's doc block should not be required. -->
+        <exclude name="SlevomatCodingStandard.TypeHints.ParameterTypeHint.MissingTraversableTypeHintSpecification"/>
+    </rule>
+    <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
+        <!-- Defining the type of a return type in a hook implementation's doc block should not be required. -->
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification"/>
     </rule>
 
     <rule ref="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation"/>
