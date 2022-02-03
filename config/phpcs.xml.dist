@@ -29,7 +29,7 @@
 
     <!-- Authored list of SlevomatCodingStandard rules based on https://github.com/slevomat/coding-standard/tree/5.0.0 -->
     <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes"/>
-    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.IncorrectWhitespaceBetweenOpenTagAndDeclare">
+    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.IncorrectWhitespaceBeforeDeclare">
         <severity>0</severity>
     </rule>
 
