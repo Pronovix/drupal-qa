@@ -67,7 +67,7 @@
     <rule ref="SlevomatCodingStandard.PHP.UselessSemicolon"/>
     <rule ref="SlevomatCodingStandard.Variables.UnusedVariable">
         <properties>
-            <property name="ignoreUnusedValuesWhenOnlyKeysAreUsedInForeach" value="1"/>
+            <property name="ignoreUnusedValuesWhenOnlyKeysAreUsedInForeach" value="true"/>
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.Variables.UselessVariable"/>
