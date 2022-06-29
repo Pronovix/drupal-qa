@@ -40,6 +40,10 @@
     <rule ref="SlevomatCodingStandard.TypeHints.ReturnTypeHint">
         <!-- Defining the type of a return type in a hook implementation's doc block should not be required. -->
         <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingTraversableTypeHintSpecification"/>
+        <!-- Return typehint cannot be added to existing code in a minor/patch version without bumping PHP version
+        requirement because that would be a BC break in downstream. -->
+        <!-- @todo Remove this when PHP 7.4 language level support can be completely dropped. -->
+        <exclude name="SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint"/>
     </rule>
 
     <rule ref="SlevomatCodingStandard.Arrays.DisallowImplicitArrayCreation"/>
