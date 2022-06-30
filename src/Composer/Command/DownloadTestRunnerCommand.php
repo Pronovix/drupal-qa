@@ -92,6 +92,7 @@ final class DownloadTestRunnerCommand extends BaseCommand
                 throw new InvalidArgumentException('"destination" parameter must be a non-empty string.');
             }
             $this->testRunnerDownloader->download($destination, $input->getOption('overwrite'), !$input->getOption('no-progress'));
+            return 0;
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage());
 
