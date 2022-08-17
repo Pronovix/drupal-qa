@@ -16,7 +16,7 @@
         "mglaman/drupal-check is locked on <=1.2.1 because newer versions produces malformed JSON output and run PHPStan on level 2. See: https://github.com/mglaman/drupal-check/issues/274 and https://mglaman.dev/blog/drupal-check-140-enforcing-phpstan-level-2"
     ],
     "require": {
-        "php": "~7.4.0 || ~8.0.0 || ~8.1.6",
+        "php": "~7.4.0 || ~8.1.6",
         "composer-plugin-api": "^1.1 || ^2.0",
         "behat/mink": "^1.8",
         "bex/behat-screenshot": "^1.2.9",
