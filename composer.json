@@ -18,8 +18,9 @@
     "require": {
         "php": "~7.4.0 || ~8.1.6",
         "composer-plugin-api": "^1.1 || ^2.0",
+        "behat/behat": "^3.9.0",
         "behat/mink": "^1.8",
-        "bex/behat-screenshot": "^1.2.9",
+        "bex/behat-screenshot": "^2.0.1",
         "cweagans/composer-patches": "^1.7",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
         "drupal/core-dev": "~9.4.4",
@@ -49,7 +50,12 @@
         "platform": {
             "php": "7.4.0"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "cweagans/composer-patches": true,
+            "ergebnis/composer-normalize": true
+        }
     },
     "extra": {
         "branch-alias": {
