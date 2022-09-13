@@ -1,0 +1,18 @@
+{
+    "name": "pronovix/drupal-qa-acme",
+    "type": "project",
+    "require": {
+        "pronovix/drupal-qa": "^99.99999"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/fake_drupal_qa"
+        }
+    ],
+    "extra": {
+        "monorepo-helper": {
+            "enabled": false
+        }
+    }
+}

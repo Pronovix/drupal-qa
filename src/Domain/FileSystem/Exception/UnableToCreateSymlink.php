@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (C) 2019 PRONOVIX GROUP BVBA.
+ * Copyright (C) 2019-2022 PRONOVIX GROUP.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -21,33 +21,25 @@ declare(strict_types=1);
  * USA.
  */
 
-namespace Pronovix\DrupalQa\Exception;
+namespace Pronovix\DrupalQa\Domain\FileSystem\Exception;
 
-class CouldNotBeSymlinkedException extends RuntimeException
+use Pronovix\DrupalQa\Exception\RuntimeException;
+
+class UnableToCreateSymlink extends RuntimeException
 {
-    /**
-     * @var string
-     */
-    private $source;
+    private string $symlinkTo;
+
+    private string $createAt;
 
     /**
-     * @var string
+     * UnableCreateSymlink constructor.
      */
-    private $destination;
-
-    /**
-     * CouldNotBeSymlinkedException constructor.
-     *
-     * @param string $source
-     * @param string $destination
-     * @param \Throwable|null $previous
-     */
-    public function __construct(string $source, string $destination, \Throwable $previous = null)
+    public function __construct(string $symlink_to, string $create_at, \Throwable $previous = null)
     {
-        $this->source = $source;
-        $this->destination = $destination;
-        $error_message = 'Unable to symlink PHPCS configuration from "{source}" to "{destination}".';
-        $error_context = ['{source}' => $source, '{destination}' => $destination];
+        $this->symlinkTo = $symlink_to;
+        $this->createAt = $create_at;
+        $error_message = 'Unable to create symlink to "{symlink_to}" at "{location}".';
+        $error_context = ['{symlink_to}' => $symlink_to, '{location}' => $create_at];
         if (null !== $previous) {
             $error_context['reason'] = $previous->getMessage();
             $error_message .= ' Reason: {reason}.';
@@ -56,19 +48,13 @@ class CouldNotBeSymlinkedException extends RuntimeException
         parent::__construct(strtr($error_message, $error_context), 0, $previous);
     }
 
-    /**
-     * @return string
-     */
-    public function getSource(): string
+    public function symlinkTo(): string
     {
-        return $this->source;
+        return $this->symlinkTo;
     }
 
-    /**
-     * @return string
-     */
-    public function getDestination(): string
+    public function createAt(): string
     {
-        return $this->destination;
+        return $this->createAt;
     }
 }

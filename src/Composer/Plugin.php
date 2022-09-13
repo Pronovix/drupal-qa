@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 /**
- * Copyright (C) 2019 PRONOVIX GROUP BVBA.
+ * Copyright (C) 2019-2022 PRONOVIX GROUP.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -35,8 +35,15 @@ use Composer\Plugin\Capability\CommandProvider as ComposerCommandProvider;
 use Composer\Plugin\Capable;
 use Composer\Plugin\PluginInterface;
 use Composer\Util\Filesystem;
-use Pronovix\DrupalQa\Composer\Command\CommandProvider;
-use Pronovix\DrupalQa\Composer\Handler\PhpCsConfigInstaller;
+use Pronovix\DrupalQa\Composer\Application\EnsurePhpStanConfigsExist;
+use Pronovix\DrupalQa\Composer\Application\PhpCsConfigInstaller;
+use Pronovix\DrupalQa\Composer\Application\ReplaceDrupalCheckBinaryWithPhpStanBridge;
+use Pronovix\DrupalQa\Composer\Domain\Service\DrupalQaPathProviderInterface;
+use Pronovix\DrupalQa\Composer\Infrastructure\BinDirPathFromComposerConfigProvider;
+use Pronovix\DrupalQa\Composer\Infrastructure\ComposerFileSystemAdapter;
+use Pronovix\DrupalQa\Composer\Infrastructure\CurrentWorkdirAsComposerProjectRoot;
+use Pronovix\DrupalQa\Composer\Infrastructure\InstalledDrupalQaPathProvider;
+use Pronovix\DrupalQa\Composer\Infrastructure\VendorDirPathFromComposerConfigProvider;
 use Pronovix\DrupalQa\Exception\FileExistsException;
 use Pronovix\DrupalQa\Logger\Logger;
 
@@ -46,16 +53,16 @@ final class Plugin implements PluginInterface, Capable, EventSubscriberInterface
     private $logger;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function activate(Composer $composer, IOInterface $io): void
     {
         // On global installations, if the pronovix/composer-logger library
-        // has not been installed earlier then the install could fail because
+        // has not been installed earlier then installation could fail because
         // the autoloader has not been updated yet with the newly installed
         // dependency.
         if (!class_exists('\Pronovix\ComposerLogger\Logger')) {
-            $loggerFile = $composer->getConfig()->get('vendor-dir') . '/pronovix/composer-logger/src/Logger.php';
+            $loggerFile = (new VendorDirPathFromComposerConfigProvider($composer->getConfig()))->getPath() . '/pronovix/composer-logger/src/Logger.php';
             if (file_exists($loggerFile)) {
                 require_once $loggerFile;
             } else {
@@ -69,14 +76,14 @@ final class Plugin implements PluginInterface, Capable, EventSubscriberInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function deactivate(Composer $composer, IOInterface $io): void
     {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function uninstall(Composer $composer, IOInterface $io): void
     {
@@ -85,7 +92,7 @@ final class Plugin implements PluginInterface, Capable, EventSubscriberInterface
     /**
      * {@inheritdoc}
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
           PackageEvents::POST_PACKAGE_INSTALL => 'postPackageInstall',
@@ -96,20 +103,30 @@ final class Plugin implements PluginInterface, Capable, EventSubscriberInterface
 
     /**
      * Reacts to package removals.
-     *
-     * @param \Composer\Installer\PackageEvent $event
      */
     public function prePackageUninstall(PackageEvent $event): void
     {
         /** @var \Composer\DependencyResolver\Operation\UninstallOperation $operation */
         $operation = $event->getOperation();
-        if (PhpCsConfigInstaller::PACKAGE_NAME === $operation->getPackage()->getName()) {
+        if (DrupalQaPathProviderInterface::PACKAGE_NAME === $operation->getPackage()->getName()) {
             // It is important to pass the instance of Composer that belongs
             // to the event instead of $this->composer because that instance
             // knows where this library was installed.
-            $installer = new PhpCsConfigInstaller($event->getComposer(), new Filesystem(), $this->logger);
+            $composer_filesystem_adapter = new ComposerFileSystemAdapter(new Filesystem());
+            $project_root_locator = new CurrentWorkdirAsComposerProjectRoot($composer_filesystem_adapter);
+
+            $phpcs_config_installer = new PhpCsConfigInstaller(
+              new InstalledDrupalQaPathProvider(
+                $event->getComposer()->getRepositoryManager()->getLocalRepository(),
+                $event->getComposer()->getInstallationManager(),
+                $composer_filesystem_adapter
+              ),
+              $project_root_locator,
+              $composer_filesystem_adapter,
+              $this->logger
+            );
             try {
-                $installer->uninstall();
+                $phpcs_config_installer->uninstall();
             } catch (\Exception $e) {
                 $this->logger->error($e->getMessage());
             }
@@ -118,8 +135,6 @@ final class Plugin implements PluginInterface, Capable, EventSubscriberInterface
 
     /**
      * Reacts to post package install/updates.
-     *
-     * @param \Composer\Installer\PackageEvent $event
      */
     public function postPackageInstall(PackageEvent $event): void
     {
@@ -131,12 +146,27 @@ final class Plugin implements PluginInterface, Capable, EventSubscriberInterface
             $package = $operation->getTargetPackage();
         }
 
-        if ($package instanceof PackageInterface && PhpCsConfigInstaller::PACKAGE_NAME === $package->getName()) {
-            $installer = new PhpCsConfigInstaller($event->getComposer(), new Filesystem(), $this->logger);
+        if ($package instanceof PackageInterface && DrupalQaPathProviderInterface::PACKAGE_NAME === $package->getName()) {
+            $filesystem = new Filesystem();
+            $composer_filesystem_adapter = new ComposerFileSystemAdapter($filesystem);
+            $project_root_locator = new CurrentWorkdirAsComposerProjectRoot($composer_filesystem_adapter);
+
+            $qa_path_provider = new InstalledDrupalQaPathProvider(
+              $event->getComposer()->getRepositoryManager()->getLocalRepository(),
+              $event->getComposer()->getInstallationManager(),
+              $composer_filesystem_adapter
+            );
+
+            $phpcs_config_installer = new PhpCsConfigInstaller(
+              $qa_path_provider,
+              $project_root_locator,
+              $composer_filesystem_adapter,
+              $this->logger
+            );
             try {
-                $installer->install();
+                $phpcs_config_installer->install($project_root_locator->getPath());
             } catch (FileExistsException $e) {
-                if (is_link($e->getPath()) && readlink($e->getPath()) === $installer->getConfigFilePath()) {
+                if (is_link($e->getPath()) && readlink($e->getPath()) === $phpcs_config_installer->getConfigFilePath()) {
                     $this->logger->info('PHPCS configuration is already symlinked.');
                 } else {
                     $this->logger->warning(sprintf('phpcs.yml.dist already exists in %s. Configuration shipped with this package has not been symlinked.', getcwd()));
@@ -144,13 +174,25 @@ final class Plugin implements PluginInterface, Capable, EventSubscriberInterface
             } catch (\Exception $e) {
                 $this->logger->error($e->getMessage());
             }
+
+            try {
+                (new ReplaceDrupalCheckBinaryWithPhpStanBridge($qa_path_provider, new BinDirPathFromComposerConfigProvider($event->getComposer()->getConfig()), $composer_filesystem_adapter))();
+            } catch (\Exception $e) {
+                $this->logger->error($e->getMessage());
+            }
+
+            try {
+                (new EnsurePhpStanConfigsExist($qa_path_provider, $composer_filesystem_adapter))($project_root_locator->getPath());
+            } catch (\Exception $e) {
+                $this->logger->error($e->getMessage());
+            }
         }
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
-    public function getCapabilities()
+    public function getCapabilities(): array
     {
         return [
           ComposerCommandProvider::class => CommandProvider::class,

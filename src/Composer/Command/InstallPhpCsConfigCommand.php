@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace Pronovix\DrupalQa\Composer\Command;
 
 use Composer\Command\BaseCommand;
-use Pronovix\DrupalQa\Composer\Handler\PhpCsConfigInstaller;
+use Pronovix\DrupalQa\Composer\Application\PhpCsConfigInstaller;
 use Pronovix\DrupalQa\Exception\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -33,15 +33,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class InstallPhpCsConfigCommand extends BaseCommand
 {
-    /**
-     * @var \Pronovix\DrupalQa\Composer\Handler\PhpCsConfigInstaller
-     */
-    private $phpCsConfigInstaller;
+    private PhpCsConfigInstaller $phpCsConfigInstaller;
 
-    /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(
       PhpCsConfigInstaller $phpCsConfigInstaller,
@@ -53,7 +47,7 @@ final class InstallPhpCsConfigCommand extends BaseCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function configure(): void
     {
@@ -70,12 +64,12 @@ final class InstallPhpCsConfigCommand extends BaseCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      *
      * @psalm-suppress PossiblyInvalidArgument $destination cannot be something
      *   else than string or null.
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
             $destination = $input->getArgument('destination');
@@ -88,5 +82,7 @@ final class InstallPhpCsConfigCommand extends BaseCommand
 
             return 1;
         }
+
+        return 0;
     }
 }

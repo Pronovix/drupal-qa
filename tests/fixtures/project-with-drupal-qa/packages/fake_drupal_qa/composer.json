@@ -1,0 +1,6 @@
+{
+    "name": "pronovix/drupal-qa",
+    "description": "Fake Drupal QA package for testing",
+    "type": "library",
+    "version": "99.99999"
+}

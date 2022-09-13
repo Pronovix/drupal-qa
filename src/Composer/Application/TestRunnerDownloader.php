@@ -3,25 +3,25 @@
 declare(strict_types=1);
 
 /**
- * Copyright (C) 2019 PRONOVIX GROUP BVBA.
+ * Copyright (C) 2019-2022 PRONOVIX GROUP.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  *
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *  *
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  */
 
-namespace Pronovix\DrupalQa\Composer\Handler;
+namespace Pronovix\DrupalQa\Composer\Application;
 
 use Composer\IO\IOInterface;
 use Composer\Repository\Vcs\GitHubDriver;
@@ -34,6 +34,12 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 
+/**
+ * @todo Hexagonalize this and make it covered by tests. (Depend on domain
+ *   services, etc.)
+ * @todo Logging is a secondary and optional task, trigger an event instead that
+ *   can be used for this purpose.
+ */
 final class TestRunnerDownloader
 {
     public const TESTRUNNER_REPO_NAME = 'Pronovix/testrunner';
@@ -72,13 +78,6 @@ final class TestRunnerDownloader
 
     /**
      * TestRunnerDownloader constructor.
-     *
-     * @param \Composer\Repository\Vcs\GitHubDriver $gitHubDriver
-     * @param \Composer\Util\RemoteFilesystem $remoteFilesystem
-     * @param \Composer\IO\IOInterface $io
-     * @param \Composer\Util\Filesystem $composerFileSystem
-     * @param \Symfony\Component\Filesystem\Filesystem $filesystem
-     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(GitHubDriver $gitHubDriver, RemoteFilesystem $remoteFilesystem, IOInterface $io, ComposerFilesystem $composerFileSystem, Filesystem $filesystem, LoggerInterface $logger)
     {
@@ -94,10 +93,6 @@ final class TestRunnerDownloader
 
     /**
      * Downloads the TestRunner to the given directory.
-     *
-     * @param string $directory
-     * @param bool $overwrite
-     * @param bool $show_progress
      *
      * @throws \Pronovix\DrupalQa\Exception\RuntimeException
      * @throws \Pronovix\DrupalQa\Exception\InvalidArgumentException
@@ -137,8 +132,6 @@ final class TestRunnerDownloader
      * Retrieves the latest release number of the TestRunner.
      *
      * @throws \Pronovix\DrupalQa\Exception\RuntimeException
-     *
-     * @return string
      */
     private function getLatestVersionId(): string
     {
@@ -152,19 +145,19 @@ final class TestRunnerDownloader
         }
         $tags = array_keys($tags);
 
-        return reset($tags);
+        // @todo Is this what we really want?
+        if (empty($tags)) {
+            return '';
+        }
+
+        return (string) reset($tags);
     }
 
     /**
      * Returns the path with the filename where the symlink should be created.
      *
-     * @param string $directory
-     * @param bool $check_file_exists
-     *
      * @throws \Pronovix\DrupalQa\Exception\FileExistsException
      * @throws \Pronovix\DrupalQa\Exception\InvalidArgumentException
-     *
-     * @return string
      */
     private function getDestinationFilePath(string $directory, bool $check_file_exists = true): string
     {

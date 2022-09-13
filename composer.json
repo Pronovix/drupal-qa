@@ -4,16 +4,13 @@
     "license": "GPL-2.0-or-later",
     "type": "composer-plugin",
     "keywords": [
+        "dev",
         "Composer",
         "Drupal",
         "QA",
         "code style",
         "code quality",
         "testing"
-    ],
-    "_comment": [
-        "composer/composer is not a dev requirement because this library depends on code from that",
-        "mglaman/drupal-check is locked on <=1.2.1 because newer versions produces malformed JSON output and run PHPStan on level 2. See: https://github.com/mglaman/drupal-check/issues/274 and https://mglaman.dev/blog/drupal-check-140-enforcing-phpstan-level-2"
     ],
     "require": {
         "php": "~7.4.0 || ~8.1.6",
@@ -29,16 +26,14 @@
         "ergebnis/composer-normalize": "^2.13.0",
         "friendsoftwig/twigcs": "^6.0",
         "instaclick/php-webdriver": "^1.4.5",
-        "mglaman/drupal-check": "<=1.2.1",
+        "mglaman/phpstan-drupal": "^1.1",
         "phpspec/prophecy-phpunit": "^2",
-        "phpstan/phpstan": "^1.2",
+        "phpstan/phpstan": "^1.8.5",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
         "pronovix/composer-logger": "^3.0",
         "slevomat/coding-standard": "^7.0"
     },
-    "require-dev": {
-        "composer/composer": "^1.7.3 || ^2.0",
-        "friendsofphp/php-cs-fixer": "^2.15"
-    },
+    "require-dev": {},
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
@@ -46,16 +41,21 @@
             "Pronovix\\DrupalQa\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Pronovix\\DrupalQa\\Tests\\": "tests/src"
+        }
+    },
     "config": {
-        "platform": {
-            "php": "7.4.0"
-        },
-        "sort-packages": true,
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
             "cweagans/composer-patches": true,
             "ergebnis/composer-normalize": true
-        }
+        },
+        "platform": {
+            "php": "7.4.0"
+        },
+        "sort-packages": true
     },
     "extra": {
         "branch-alias": {
@@ -63,20 +63,116 @@
         },
         "class": "Pronovix\\DrupalQa\\Composer\\Plugin",
         "composer-exit-on-patch-failure": true,
+        "composer-normalize": {
+            "indent-size": 4,
+            "indent-style": "space"
+        },
         "patches": {
             "drupal/core": {
                 "Fix 'Undefined index: value' when database connection issue occurs in tests [#3163925]": "https://git.drupalcode.org/project/drupal/-/merge_requests/212.diff",
                 "copy() can fail in FunctionalTestSetupTrait::prepareSettings() because of a race condition  [#3191369]": "https://git.drupalcode.org/project/drupal/-/merge_requests/218.diff",
                 "file_scan_ignore_directories is ignored in kernel tests [#3190974]": "https://git.drupalcode.org/project/drupal/-/commit/92300d75eeb03105408f96d5064bd641168d6a82.diff"
-            },
-            "mglaman/phpstan-drupal": {
-                "Exclude build directory from discovery": "https://github.com/mglaman/phpstan-drupal/pull/85.diff"
             }
         }
     },
     "scripts": {
-        "analyze": "psalm --config=psalm.xml.dist --show-info=false --stats",
-        "check-style": "php-cs-fixer fix --dry-run",
-        "fix-style": "php-cs-fixer fix"
+        "post-install-cmd": [
+            "Composer\\Config::disableProcessTimeout",
+            "@tools:install",
+            "@test:e2e:install",
+            "@test:dummys:install"
+        ],
+        "post-update-cmd": [
+            "Composer\\Config::disableProcessTimeout",
+            "@tools:install",
+            "@test:e2e:install",
+            "@test:dummys:install"
+        ],
+        "lint:check": [
+            "Composer\\Config::disableProcessTimeout",
+            "@lint:php:check",
+            "@lint:composer:check",
+            "@lint:neon:check"
+        ],
+        "lint:composer:check": [
+            "Composer\\Config::disableProcessTimeout",
+            "@composer validate",
+            "@composer validate --working-dir=./tools",
+            "@composer normalize --working-dir=./tools ../composer.json --dry-run --no-check-lock",
+            "@composer normalize --working-dir=./tools --dry-run --no-check-lock"
+        ],
+        "lint:composer:fix": [
+            "Composer\\Config::disableProcessTimeout",
+            "@composer normalize --working-dir=./tools ../composer.json --no-check-lock",
+            "@composer normalize --working-dir=./tools --no-check-lock"
+        ],
+        "lint:fix": [
+            "Composer\\Config::disableProcessTimeout",
+            "@lint:php:fix",
+            "@lint:composer:fix"
+        ],
+        "lint:neon:check": [
+            "tools/vendor/bin/neon-lint ."
+        ],
+        "lint:php:check": [
+            "Composer\\Config::disableProcessTimeout",
+            "tools/vendor/bin/php-cs-fixer fix --dry-run"
+        ],
+        "lint:php:fix": [
+            "Composer\\Config::disableProcessTimeout",
+            "tools/vendor/bin/php-cs-fixer fix"
+        ],
+        "static:check": [
+            "Composer\\Config::disableProcessTimeout",
+            "@static:phpstan"
+        ],
+        "static:fix": [],
+        "static:phpstan": [
+            "Composer\\Config::disableProcessTimeout",
+            "tools/vendor/bin/phpstan analyze"
+        ],
+        "static:phpstan:baseline": [
+            "Composer\\Config::disableProcessTimeout",
+            "tools/vendor/bin/phpstan analyze -b"
+        ],
+        "test": [
+            "Composer\\Config::disableProcessTimeout",
+            "@test:phpunit"
+        ],
+        "test:dummys:install": [
+            "Composer\\Config::disableProcessTimeout",
+            "@composer install --working-dir=./tests/fixtures/project-with-drupal-qa"
+        ],
+        "test:e2e:install": [
+            "Composer\\Config::disableProcessTimeout",
+            "git --work-tree=./tests/fixtures/e2e clean -dxff -e 'composer.json'",
+            "@composer install --working-dir=./tests/fixtures/e2e"
+        ],
+        "test:phpunit": [
+            "Composer\\Config::disableProcessTimeout",
+            "tools/vendor/bin/phpunit --debug"
+        ],
+        "tools:install": [
+            "Composer\\Config::disableProcessTimeout",
+            "@composer install --working-dir=./tools"
+        ]
+    },
+    "scripts-descriptions": {
+        "lint:check": "Checks if different kinds of files are linted properly with configured linters.",
+        "lint:composer:check": "Validate composer.json with linters.",
+        "lint:composer:fix": "Auto-fix composer.json with linters.",
+        "lint:fix": "Auto-fix what is possible on different kinds of files with configured linters.",
+        "lint:neon:check": "Validate NEON files with linters",
+        "lint:php:check": "Validate PHP files with linters.",
+        "lint:php:fix": "Auto-fix what is possible on PHP files with linters.",
+        "static:check": "Checks if different kinds of files are pass on configured static code analyzers.",
+        "static:fix": "Auto-fix what is possible on different kinds of files with configured static code analyzers.",
+        "static:phpstan": "Run static code analyzes on PHP files with PHPStan.",
+        "static:phpstan:baseline": "Generate PHPStan baseline for remaining errors.",
+        "test": "Run all test suites.",
+        "test:dummys:install": "Install an dummy test environments.",
+        "test:e2e:install": "Install an e2e test environments.",
+        "test:phpunit": "Run all PHPUnit tests.",
+        "tools:install": "Install development tools."
     }
 }

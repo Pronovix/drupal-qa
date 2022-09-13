@@ -1,0 +1,36 @@
+{
+    "name": "pronovix/drupal-qa-e2e",
+    "description": "Drupal QA end-to-end test suite",
+    "license": "GPL-2.0-or-later",
+    "type": "library",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "..",
+            "options": {
+                "symlink": false
+            }
+        }
+    ],
+    "require": {
+        "pronovix/drupal-qa": "*",
+        "mglaman/drupal-check": "^1.4.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "cweagans/composer-patches": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "ergebnis/composer-normalize": true,
+            "pronovix/drupal-qa": true
+        },
+        "platform": {
+            "php": "7.4.0"
+        }
+    },
+    "extra": {
+        "composer-normalize": {
+            "indent-size": 4,
+            "indent-style": "space"
+        }
+    }
+}

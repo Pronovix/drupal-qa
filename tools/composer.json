@@ -1,0 +1,34 @@
+{
+    "name": "pronovix/drupal-qa-tools",
+    "description": "Drupal QA development tools",
+    "license": "GPL-2.0-or-later",
+    "type": "library",
+    "_comment": [
+        "composer/composer is a dev requirement because this library depends on code from that",
+        "drupal/core is a dev requirement because this library depends on code from that"
+    ],
+    "require": {
+        "composer/composer": "^1.7.3 || ^2.0",
+        "drupal/core": "~9.4.4",
+        "ergebnis/composer-normalize": "^2.13.0",
+        "friendsofphp/php-cs-fixer": "^2.15",
+        "nette/neon": "^3.3",
+        "phpstan/phpstan": "^1.8.5",
+        "phpstan/phpstan-deprecation-rules": "^1.0",
+        "phpunit/phpunit": "^9.5"
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        },
+        "platform": {
+            "php": "7.4.0"
+        }
+    },
+    "extra": {
+        "composer-normalize": {
+            "indent-size": 4,
+            "indent-style": "space"
+        }
+    }
+}

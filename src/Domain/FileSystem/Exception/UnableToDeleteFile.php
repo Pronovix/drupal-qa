@@ -3,53 +3,50 @@
 declare(strict_types=1);
 
 /**
- * Copyright (C) 2019 PRONOVIX GROUP BVBA.
+ * Copyright (C) 2022 PRONOVIX GROUP.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- *  *
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *  *
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301,
  * USA.
  */
 
-namespace Pronovix\DrupalQa\Logger;
+namespace Pronovix\DrupalQa\Domain\FileSystem\Exception;
 
-use Composer\IO\IOInterface;
-use Pronovix\ComposerLogger\Logger as ComposerLogger;
-use Psr\Log\AbstractLogger;
+use Pronovix\DrupalQa\Exception\RuntimeException;
 
-/**
- * PSR-3 logger wrapper around IOInterface.
- */
-final class Logger extends AbstractLogger
+final class UnableToDeleteFile extends RuntimeException
 {
-    /**
-     * @var \Pronovix\ComposerLogger\Logger
-     */
-    private $decorated;
+    private string $location;
 
-    /**
-     * {@inheritDoc}
-     */
-    public function __construct(IOInterface $io)
+    private string $reason;
+
+    public static function atLocation(string $location, string $reason = '', \Throwable $previous = null): UnableToDeleteFile
     {
-        $this->decorated = new ComposerLogger('Drupal QA', $io);
+        $e = new static(rtrim("Unable to delete file located at: {$location}. {$reason}"), 0, $previous);
+        $e->location = $location;
+        $e->reason = $reason;
+
+        return $e;
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function log($level, $message, array $context = []): void
+    public function reason(): string
     {
-        $this->decorated->log($level, $message, $context);
+        return $this->reason;
+    }
+
+    public function location(): string
+    {
+        return $this->location;
     }
 }

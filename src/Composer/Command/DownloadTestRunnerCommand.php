@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace Pronovix\DrupalQa\Composer\Command;
 
 use Composer\Command\BaseCommand;
-use Pronovix\DrupalQa\Composer\Handler\TestRunnerDownloader;
+use Pronovix\DrupalQa\Composer\Application\TestRunnerDownloader;
 use Pronovix\DrupalQa\Exception\InvalidArgumentException;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Input\InputArgument;
@@ -35,7 +35,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class DownloadTestRunnerCommand extends BaseCommand
 {
     /**
-     * @var \Pronovix\DrupalQa\Composer\Handler\TestRunnerDownloader
+     * @var \Pronovix\DrupalQa\Composer\Application\TestRunnerDownloader
      */
     private $testRunnerDownloader;
 
@@ -46,9 +46,6 @@ final class DownloadTestRunnerCommand extends BaseCommand
 
     /**
      * DownloadTestRunnerCommand constructor.
-     *
-     * @param \Pronovix\DrupalQa\Composer\Handler\TestRunnerDownloader $testRunnerDownloader
-     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
       TestRunnerDownloader $testRunnerDownloader,
@@ -60,7 +57,7 @@ final class DownloadTestRunnerCommand extends BaseCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     protected function configure(): void
     {
@@ -79,7 +76,7 @@ final class DownloadTestRunnerCommand extends BaseCommand
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      *
      * @psalm-suppress PossiblyInvalidArgument $destination cannot be something
      *   else than string or null.
@@ -92,6 +89,7 @@ final class DownloadTestRunnerCommand extends BaseCommand
                 throw new InvalidArgumentException('"destination" parameter must be a non-empty string.');
             }
             $this->testRunnerDownloader->download($destination, $input->getOption('overwrite'), !$input->getOption('no-progress'));
+
             return 0;
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage());

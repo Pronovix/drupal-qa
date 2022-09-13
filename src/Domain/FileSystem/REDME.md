@@ -1,0 +1,1 @@
+The design was inspired by https://github.com/thephpleague/flysystem.

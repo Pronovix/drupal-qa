@@ -31,7 +31,7 @@ class FileExistsException extends RuntimeException
     private $path;
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     public function __construct(string $path)
     {
@@ -39,9 +39,6 @@ class FileExistsException extends RuntimeException
         $this->path = $path;
     }
 
-    /**
-     * @return string
-     */
     public function getPath(): string
     {
         return $this->path;

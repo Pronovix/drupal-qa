@@ -1,0 +1,27 @@
+includes:
+  - %rootDir%/../../mglaman/phpstan-drupal/extension.neon
+  - %rootDir%/../../mglaman/phpstan-drupal/rules.neon
+  - %rootDir%/../../phpstan/phpstan-deprecation-rules/rules.neon
+
+parameters:
+  level: 5
+  tipsOfTheDay: false
+  reportUnmatchedIgnoredErrors: false
+  treatPhpDocTypesAsCertain: false
+  excludePaths:
+    - */node_modules/*
+    - */tests/fixtures/*.php
+    # Proxy classes are auto-generated ones, do not analyze those.
+    - */ProxyClass/*.php
+  ignoreErrors:
+      # With strict_types=1 enabled passing a \Stringable to string is not allowed and Drupal
+      # core is full with "string" typehints instead of "string|\Stringable".
+      # A few example:
+      # - \Drupal\Core\Form\FormStateInterface::setError()
+      # - \Drupal\Component\Plugin\Context\ContextDefinitionInterface::setLabel()
+      # - \Drupal\Core\Entity\EntityInterface::toLink()
+      # See also https://github.com/phpstan/phpstan/issues/3524
+      # The regexp also covered string and string|null expectations.
+      - "#.* expects string(\\|null)?, Drupal\\\\Core\\\\StringTranslation\\\\TranslatableMarkup given\\.$#"
+      - "#.* expects string(\\|null)?, Drupal\\\\Component\\\\Render\\\\MarkupInterface given\\.$#"
+      - "#.* expects string(\\|null)?, Drupal\\\\Component\\\\Render\\\\FormattableMarkup given\\.$#"

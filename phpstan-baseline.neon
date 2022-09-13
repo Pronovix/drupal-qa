@@ -1,0 +1,61 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Parameter \\#1 \\$directory of method Pronovix\\\\DrupalQa\\\\Composer\\\\Application\\\\TestRunnerDownloader\\:\\:download\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: src/Composer/Command/DownloadTestRunnerCommand.php
+
+		-
+			message: "#^Parameter \\#2 \\$overwrite of method Pronovix\\\\DrupalQa\\\\Composer\\\\Application\\\\TestRunnerDownloader\\:\\:download\\(\\) expects bool, mixed given\\.$#"
+			count: 1
+			path: src/Composer/Command/DownloadTestRunnerCommand.php
+
+		-
+			message: "#^Parameter \\#1 \\$create_at of method Pronovix\\\\DrupalQa\\\\Composer\\\\Application\\\\PhpCsConfigInstaller\\:\\:install\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: src/Composer/Command/InstallPhpCsConfigCommand.php
+
+		-
+			message: "#^If condition is always false\\.$#"
+			count: 1
+			path: src/Composer/CommandProvider.php
+
+		-
+			message: "#^Method Pronovix\\\\DrupalQa\\\\Composer\\\\CommandProvider\\:\\:__construct\\(\\) has parameter \\$args with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Composer/CommandProvider.php
+
+		-
+			message: "#^Parameter \\#4 \\$httpDownloader of class Composer\\\\Repository\\\\Vcs\\\\GitHubDriver constructor expects Composer\\\\Util\\\\HttpDownloader, Composer\\\\Util\\\\ProcessExecutor given\\.$#"
+			count: 1
+			path: src/Composer/CommandProvider.php
+
+		-
+			message: "#^Parameter \\#5 \\$process of class Composer\\\\Repository\\\\Vcs\\\\GitHubDriver constructor expects Composer\\\\Util\\\\ProcessExecutor, Composer\\\\Util\\\\RemoteFilesystem given\\.$#"
+			count: 1
+			path: src/Composer/CommandProvider.php
+
+		-
+			message: "#^Method Pronovix\\\\DrupalQa\\\\Composer\\\\Infrastructure\\\\BinDirPathFromComposerConfigProvider\\:\\:getPath\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: src/Composer/Infrastructure/BinDirPathFromComposerConfigProvider.php
+
+		-
+			message: "#^Method Pronovix\\\\DrupalQa\\\\Composer\\\\Infrastructure\\\\CurrentWorkdirAsComposerProjectRoot\\:\\:getPath\\(\\) should return string but returns string\\|false\\.$#"
+			count: 1
+			path: src/Composer/Infrastructure/CurrentWorkdirAsComposerProjectRoot.php
+
+		-
+			message: "#^Parameter \\#1 \\$root_package_path of method Pronovix\\\\DrupalQa\\\\Composer\\\\Infrastructure\\\\InstalledDrupalQaPathProviderTest\\:\\:setUpProvider\\(\\) expects string, string\\|false given\\.$#"
+			count: 1
+			path: src/Composer/Infrastructure/InstalledDrupalQaPathProviderTest.php
+
+		-
+			message: "#^Method Pronovix\\\\DrupalQa\\\\Composer\\\\Infrastructure\\\\VendorDirPathFromComposerConfigProvider\\:\\:getPath\\(\\) should return string but returns mixed\\.$#"
+			count: 1
+			path: src/Composer/Infrastructure/VendorDirPathFromComposerConfigProvider.php
+
+		-
+			message: "#^Method Pronovix\\\\DrupalQa\\\\Drupal\\\\PhpUnit\\\\DrupalExtensionFilterIterator\\:\\:__construct\\(\\) has parameter \\$iterator with generic interface RecursiveIterator but does not specify its types\\: TKey, TValue$#"
+			count: 1
+			path: src/Drupal/PhpUnit/DrupalExtensionFilterIterator.php
