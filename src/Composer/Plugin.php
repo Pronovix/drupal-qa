@@ -169,7 +169,7 @@ final class Plugin implements PluginInterface, Capable, EventSubscriberInterface
                 if (is_link($e->getPath()) && readlink($e->getPath()) === $phpcs_config_installer->getConfigFilePath()) {
                     $this->logger->info('PHPCS configuration is already symlinked.');
                 } else {
-                    $this->logger->warning(sprintf('phpcs.yml.dist already exists in %s. Configuration shipped with this package has not been symlinked.', getcwd()));
+                    $this->logger->warning(sprintf('phpcs.xml.dist already exists in %s. Configuration shipped with this package has not been symlinked.', getcwd()));
                 }
             } catch (\Exception $e) {
                 $this->logger->error($e->getMessage());

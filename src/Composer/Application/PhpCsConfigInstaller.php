@@ -116,7 +116,7 @@ final class PhpCsConfigInstaller
     }
 
     /**
-     * Retrieves the path of the phpcs.yml.dist from this library.
+     * Retrieves the path of the phpcs.xml.dist from this library.
      *
      * @throws \Pronovix\DrupalQa\Exception\RuntimeException
      *
