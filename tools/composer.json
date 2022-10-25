@@ -13,7 +13,7 @@
         "ergebnis/composer-normalize": "^2.13.0",
         "friendsofphp/php-cs-fixer": "^2.15",
         "nette/neon": "^3.3",
-        "phpstan/phpstan": "^1.8.5",
+        "phpstan/phpstan": "^1.8.11",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "phpunit/phpunit": "^9.5"
     },

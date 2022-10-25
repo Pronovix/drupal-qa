@@ -28,7 +28,7 @@
         "instaclick/php-webdriver": "^1.4.5",
         "mglaman/phpstan-drupal": "^1.1",
         "phpspec/prophecy-phpunit": "^2",
-        "phpstan/phpstan": "^1.8.5",
+        "phpstan/phpstan": "^1.8.11",
         "phpstan/phpstan-deprecation-rules": "^1.0",
         "pronovix/composer-logger": "^3.0",
         "slevomat/coding-standard": "^7.0"
