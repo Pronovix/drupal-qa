@@ -13,7 +13,7 @@
         "testing"
     ],
     "require": {
-        "php": "~7.4.0 || ~8.1.6",
+        "php": "~8.1.6",
         "composer-plugin-api": "^1.1 || ^2.0",
         "behat/behat": "^3.9.0",
         "behat/mink": "^1.8",
@@ -53,7 +53,7 @@
             "ergebnis/composer-normalize": true
         },
         "platform": {
-            "php": "7.4.0"
+            "php": "8.1.6"
         },
         "sort-packages": true
     },

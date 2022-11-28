@@ -24,7 +24,7 @@
             "pronovix/drupal-qa": true
         },
         "platform": {
-            "php": "7.4.0"
+            "php": "8.1.6"
         }
     },
     "extra": {
