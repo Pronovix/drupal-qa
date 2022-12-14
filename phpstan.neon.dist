@@ -3,8 +3,6 @@ includes:
 
 parameters:
   level: 9
-  # TODO Remove this when PHP 7.4 support is dropped.
-  phpVersion: 70400
   tipsOfTheDay: false
   reportUnmatchedIgnoredErrors: false
   treatPhpDocTypesAsCertain: false
