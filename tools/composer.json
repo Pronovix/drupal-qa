@@ -8,7 +8,7 @@
         "drupal/core is a dev requirement because this library depends on code from that"
     ],
     "require": {
-        "composer/composer": "^1.7.3 || ^2.0",
+        "composer/composer": "^2.0",
         "drupal/core": "~9.5.0",
         "ergebnis/composer-normalize": "^2.13.0",
         "friendsofphp/php-cs-fixer": "^2.15",
