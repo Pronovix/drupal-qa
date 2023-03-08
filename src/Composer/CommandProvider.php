@@ -86,41 +86,41 @@ final class CommandProvider implements BaseCommandProvider
         }
 
         $qa_path_provider = new InstalledDrupalQaPathProvider(
-          $this->composer->getRepositoryManager()->getLocalRepository(),
-          $this->composer->getInstallationManager(),
-          $this->fileSystem
+            $this->composer->getRepositoryManager()->getLocalRepository(),
+            $this->composer->getInstallationManager(),
+            $this->fileSystem
         );
 
         $project_root_path_provider = new CurrentWorkdirAsComposerProjectRoot($this->fileSystem);
 
         return [
             new InstallPhpCsConfigCommand(new PhpCsConfigInstaller(
-              $qa_path_provider,
-              $project_root_path_provider,
-              $this->fileSystem,
-              $this->logger
+                $qa_path_provider,
+                $project_root_path_provider,
+                $this->fileSystem,
+                $this->logger
             ), $this->logger),
             new DownloadTestRunnerCommand(
-              new TestRunnerDownloader(
-                $gitHubDriver,
-                $remoteFileSystem,
-                $this->io,
-                new ComposerFilesystem(),
-                new Filesystem(),
-                $this->logger
-              ), $this->logger),
+                new TestRunnerDownloader(
+                    $gitHubDriver,
+                    $remoteFileSystem,
+                    $this->io,
+                    new ComposerFilesystem(),
+                    new Filesystem(),
+                    $this->logger
+                ), $this->logger),
             new DrupalCheckPhpStanBridgeInstallerCommand(
-              new ReplaceDrupalCheckBinaryWithPhpStanBridge(
-                $qa_path_provider,
-                new BinDirPathFromComposerConfigProvider($this->composer->getConfig()),
-                $this->fileSystem,
-            )),
+                new ReplaceDrupalCheckBinaryWithPhpStanBridge(
+                    $qa_path_provider,
+                    new BinDirPathFromComposerConfigProvider($this->composer->getConfig()),
+                    $this->fileSystem,
+                )),
             new EnsurePhpStanConfigsExistCommand(
-              new EnsurePhpStanConfigsExist(
-                $qa_path_provider,
-                $this->fileSystem
-              ),
-              $project_root_path_provider
+                new EnsurePhpStanConfigsExist(
+                    $qa_path_provider,
+                    $this->fileSystem
+                ),
+                $project_root_path_provider
             ),
         ];
     }

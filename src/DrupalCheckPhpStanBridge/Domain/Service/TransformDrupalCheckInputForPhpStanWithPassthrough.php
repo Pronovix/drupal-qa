@@ -61,7 +61,7 @@ final class TransformDrupalCheckInputForPhpStanWithPassthrough
           'args' => [],
         ];
 
-        $extract_optional_value = static function (array $haystack, int & $pointer, string $string_at_pointer): string {
+        $extract_optional_value = static function (array $haystack, int &$pointer, string $string_at_pointer): string {
             $value = null;
             if (false !== strpos($string_at_pointer, '=')) {
                 [, $value] = explode('=', $string_at_pointer);

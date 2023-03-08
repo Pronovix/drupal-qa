@@ -97,14 +97,24 @@
         "lint:composer:check": [
             "Composer\\Config::disableProcessTimeout",
             "@composer validate",
-            "@composer validate --working-dir=./tools",
-            "@composer normalize --working-dir=./tools ../composer.json --dry-run --no-check-lock",
-            "@composer normalize --working-dir=./tools --dry-run --no-check-lock"
+            "@composer validate --working-dir=./tools/lint",
+            "@composer validate --working-dir=./tools/static",
+            "@composer validate --working-dir=./tools/test",
+            "@composer normalize --working-dir=./tools/lint ../../composer.json --dry-run --no-check-lock",
+            "@composer normalize --working-dir=./tools/lint --dry-run --no-check-lock",
+            "@composer normalize --working-dir=./tools/lint ../static/composer.json --dry-run --no-check-lock",
+            "@composer normalize --working-dir=./tools/lint ../test/composer.json --dry-run --no-check-lock",
+            "@composer normalize --working-dir=./tools/lint ../../tests/fixtures/e2e/composer.json --dry-run --no-check-lock",
+            "@composer normalize --working-dir=./tools/lint ../../tests/fixtures/project-with-drupal-qa/composer.json --dry-run --no-check-lock"
         ],
         "lint:composer:fix": [
             "Composer\\Config::disableProcessTimeout",
-            "@composer normalize --working-dir=./tools ../composer.json --no-check-lock",
-            "@composer normalize --working-dir=./tools --no-check-lock"
+            "@composer normalize --working-dir=./tools/lint ../../composer.json --no-check-lock",
+            "@composer normalize --working-dir=./tools/lint --no-check-lock",
+            "@composer normalize --working-dir=./tools/lint ../static/composer.json --no-check-lock",
+            "@composer normalize --working-dir=./tools/lint ../test/composer.json --no-check-lock",
+            "@composer normalize --working-dir=./tools/lint ../../tests/fixtures/e2e/composer.json --no-check-lock",
+            "@composer normalize --working-dir=./tools/lint ../../tests/fixtures/project-with-drupal-qa/composer.json --no-check-lock"
         ],
         "lint:fix": [
             "Composer\\Config::disableProcessTimeout",
@@ -112,15 +122,15 @@
             "@lint:composer:fix"
         ],
         "lint:neon:check": [
-            "tools/vendor/bin/neon-lint ."
+            "tools/lint/vendor/bin/neon-lint ."
         ],
         "lint:php:check": [
             "Composer\\Config::disableProcessTimeout",
-            "tools/vendor/bin/php-cs-fixer fix --dry-run"
+            "tools/lint/vendor/bin/php-cs-fixer fix --dry-run"
         ],
         "lint:php:fix": [
             "Composer\\Config::disableProcessTimeout",
-            "tools/vendor/bin/php-cs-fixer fix"
+            "tools/lint/vendor/bin/php-cs-fixer fix"
         ],
         "static:check": [
             "Composer\\Config::disableProcessTimeout",
@@ -129,11 +139,11 @@
         "static:fix": [],
         "static:phpstan": [
             "Composer\\Config::disableProcessTimeout",
-            "tools/vendor/bin/phpstan analyze"
+            "tools/static/vendor/bin/phpstan analyze"
         ],
         "static:phpstan:baseline": [
             "Composer\\Config::disableProcessTimeout",
-            "tools/vendor/bin/phpstan analyze -b"
+            "tools/static/vendor/bin/phpstan analyze -b"
         ],
         "test": [
             "Composer\\Config::disableProcessTimeout",
@@ -150,11 +160,13 @@
         ],
         "test:phpunit": [
             "Composer\\Config::disableProcessTimeout",
-            "tools/vendor/bin/phpunit --debug"
+            "tools/test/vendor/bin/phpunit --debug"
         ],
         "tools:install": [
             "Composer\\Config::disableProcessTimeout",
-            "@composer install --working-dir=./tools"
+            "@composer install --working-dir=./tools/lint",
+            "@composer install --working-dir=./tools/static",
+            "@composer install --working-dir=./tools/test"
         ]
     },
     "scripts-descriptions": {

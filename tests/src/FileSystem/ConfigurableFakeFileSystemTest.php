@@ -51,7 +51,7 @@ class ConfigurableFakeFileSystemTest extends TestCase
     {
         $obj = new ConfigurableFakeFileSystem();
 
-        $callback_builder = static function (int & $called_at): callable {
+        $callback_builder = static function (int &$called_at): callable {
             return static function (string $src, string $dest) use (&$called_at): void {
                 $called_at = microtime(true);
             };
@@ -81,7 +81,7 @@ class ConfigurableFakeFileSystemTest extends TestCase
     {
         $obj = new ConfigurableFakeFileSystem();
 
-        $callback_builder = static function (int & $called_at): callable {
+        $callback_builder = static function (int &$called_at): callable {
             return static function (string $path, int $visibility) use (&$called_at): void {
                 $called_at = microtime(true);
             };

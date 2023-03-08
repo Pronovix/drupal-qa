@@ -116,14 +116,14 @@ final class Plugin implements PluginInterface, Capable, EventSubscriberInterface
             $project_root_locator = new CurrentWorkdirAsComposerProjectRoot($composer_filesystem_adapter);
 
             $phpcs_config_installer = new PhpCsConfigInstaller(
-              new InstalledDrupalQaPathProvider(
-                $event->getComposer()->getRepositoryManager()->getLocalRepository(),
-                $event->getComposer()->getInstallationManager(),
-                $composer_filesystem_adapter
-              ),
-              $project_root_locator,
-              $composer_filesystem_adapter,
-              $this->logger
+                new InstalledDrupalQaPathProvider(
+                    $event->getComposer()->getRepositoryManager()->getLocalRepository(),
+                    $event->getComposer()->getInstallationManager(),
+                    $composer_filesystem_adapter
+                ),
+                $project_root_locator,
+                $composer_filesystem_adapter,
+                $this->logger
             );
             try {
                 $phpcs_config_installer->uninstall();
@@ -152,16 +152,16 @@ final class Plugin implements PluginInterface, Capable, EventSubscriberInterface
             $project_root_locator = new CurrentWorkdirAsComposerProjectRoot($composer_filesystem_adapter);
 
             $qa_path_provider = new InstalledDrupalQaPathProvider(
-              $event->getComposer()->getRepositoryManager()->getLocalRepository(),
-              $event->getComposer()->getInstallationManager(),
-              $composer_filesystem_adapter
+                $event->getComposer()->getRepositoryManager()->getLocalRepository(),
+                $event->getComposer()->getInstallationManager(),
+                $composer_filesystem_adapter
             );
 
             $phpcs_config_installer = new PhpCsConfigInstaller(
-              $qa_path_provider,
-              $project_root_locator,
-              $composer_filesystem_adapter,
-              $this->logger
+                $qa_path_provider,
+                $project_root_locator,
+                $composer_filesystem_adapter,
+                $this->logger
             );
             try {
                 $phpcs_config_installer->install($project_root_locator->getPath());

@@ -33,12 +33,14 @@ final class ConfigurableFakeFileSystem implements FileSystemInterface
 {
     /**
      * @var array<callable>
+     *
      * @phpstan-var array<FileExistsCallback>
      */
     private array $fileExistsCallbackQueue = [];
 
     /**
      * @var array<callable>
+     *
      * @phpstan-var array<CopyCallback>
      */
     private array $copyCallbackQueue = [];
@@ -113,7 +115,6 @@ final class ConfigurableFakeFileSystem implements FileSystemInterface
     }
 
     /**
-     * @param callable ...$callbacks
      * @phpstan-param FileExistsCallback ...$callbacks
      */
     public function addFileExistsCallbacks(callable ...$callbacks): ConfigurableFakeFileSystem
@@ -124,7 +125,6 @@ final class ConfigurableFakeFileSystem implements FileSystemInterface
     }
 
     /**
-     * @param callable ...$callbacks
      * @phpstan-param CopyCallback ...$callbacks
      */
     public function addCopyCallbacks(callable ...$callbacks): ConfigurableFakeFileSystem
@@ -135,8 +135,6 @@ final class ConfigurableFakeFileSystem implements FileSystemInterface
     }
 
     /**
-     * @param callable ...$callbacks
-     *
      * @return $this
      */
     public function addChmodCallbacks(callable ...$callbacks): self

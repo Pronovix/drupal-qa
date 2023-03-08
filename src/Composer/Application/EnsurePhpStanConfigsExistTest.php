@@ -41,11 +41,11 @@ class EnsurePhpStanConfigsExistTest extends TestCase
     {
         $copy_spy_callback = new CopyCallbackSpy(new NullCopyCallback());
         $handler = new EnsurePhpStanConfigsExist(
-          new DummyDrupalQaPathProvider(),
-          (new FakeFileSystemThatAlwaysDoesTheSameBuilder())
-            ->setFileExistsCallback(new FileDoesNotExistFileExistsCallback())
-            ->setCopyCallback($copy_spy_callback)
-            ->build()
+            new DummyDrupalQaPathProvider(),
+            (new FakeFileSystemThatAlwaysDoesTheSameBuilder())
+              ->setFileExistsCallback(new FileDoesNotExistFileExistsCallback())
+              ->setCopyCallback($copy_spy_callback)
+              ->build()
         );
         $destination_base_path = '/destination/base/path';
 
@@ -74,11 +74,11 @@ class EnsurePhpStanConfigsExistTest extends TestCase
         };
         $file_exists_callback = new FileExistsCallbackCallCounterCallback(new FileExistFileExistsCallback());
         $handler = new EnsurePhpStanConfigsExist(
-          new DummyDrupalQaPathProvider(),
-          (new FakeFileSystemThatAlwaysDoesTheSameBuilder())
-            ->setFileExistsCallback($file_exists_callback)
-            ->setCopyCallback($copy_must_not_be_called_callback)
-            ->build()
+            new DummyDrupalQaPathProvider(),
+            (new FakeFileSystemThatAlwaysDoesTheSameBuilder())
+              ->setFileExistsCallback($file_exists_callback)
+              ->setCopyCallback($copy_must_not_be_called_callback)
+              ->build()
         );
 
         $handler('/wherever');

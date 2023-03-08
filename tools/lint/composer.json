@@ -1,0 +1,25 @@
+{
+    "name": "pronovix/drupal-qa-linting-tools",
+    "description": "Drupal QA linting tools",
+    "license": "GPL-2.0-or-later",
+    "type": "library",
+    "require": {
+        "ergebnis/composer-normalize": "^2.13.0",
+        "friendsofphp/php-cs-fixer": "^v3.14",
+        "nette/neon": "^3.3"
+    },
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        },
+        "platform": {
+            "php": "8.1.6"
+        }
+    },
+    "extra": {
+        "composer-normalize": {
+            "indent-size": 4,
+            "indent-style": "space"
+        }
+    }
+}

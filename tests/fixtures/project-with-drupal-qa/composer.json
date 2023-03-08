@@ -10,7 +10,16 @@
             "url": "packages/fake_drupal_qa"
         }
     ],
+    "config": {
+        "allow-plugins": {
+            "ergebnis/composer-normalize": true
+        }
+    },
     "extra": {
+        "composer-normalize": {
+            "indent-size": 4,
+            "indent-style": "space"
+        },
         "monorepo-helper": {
             "enabled": false
         }

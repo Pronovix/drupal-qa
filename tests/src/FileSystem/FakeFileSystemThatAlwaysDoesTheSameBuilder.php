@@ -31,12 +31,14 @@ final class FakeFileSystemThatAlwaysDoesTheSameBuilder
 {
     /**
      * @var callable|null
+     *
      * @phpstan-var FileExistsCallback|null
      */
     private $fileExistsCallback;
 
     /**
      * @var callable|null
+     *
      * @phpstan-var CopyCallback|null
      */
     private $copyCallback;

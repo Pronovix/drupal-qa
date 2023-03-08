@@ -32,6 +32,7 @@ final class CopyCallbackCallCounterCallback
 
     /**
      * @var callable
+     *
      * @phpstan-var CopyCallback
      */
     private $callback;
@@ -40,6 +41,7 @@ final class CopyCallbackCallCounterCallback
      * Constructs a new object.
      *
      * @param callable $callback
+     *
      * @phpstan-param CopyCallback $callback
      */
     public function __construct($callback)

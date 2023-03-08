@@ -24,7 +24,6 @@ declare(strict_types=1);
 namespace Pronovix\DrupalQa\Domain\FileSystem\Exception;
 
 use Pronovix\DrupalQa\Exception\RuntimeException;
-use Throwable;
 
 final class UnableToCopyFile extends RuntimeException
 {
@@ -35,7 +34,7 @@ final class UnableToCopyFile extends RuntimeException
     public static function fromLocationTo(
     string $source_path,
     string $destination_path,
-    Throwable $previous = null
+    \Throwable $previous = null
   ): self {
         $e = new static("Unable to copy file from $source_path to $destination_path", 0 , $previous);
         $e->source = $source_path;

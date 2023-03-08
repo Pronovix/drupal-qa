@@ -44,11 +44,11 @@ class ReplaceDrupalCheckBinaryWithPhpStanBridgeTest extends TestCase
         };
         $bin_dir_path_provider = new DummyBinDirPathProvider();
         $handler = new ReplaceDrupalCheckBinaryWithPhpStanBridge(
-          new DummyDrupalQaPathProvider(),
-          $bin_dir_path_provider,
-          (new ConfigurableFakeFileSystem())
-            ->addCopyCallbacks($copy_spy)
-            ->addChmodCallbacks($chmod_operation_spy)
+            new DummyDrupalQaPathProvider(),
+            $bin_dir_path_provider,
+            (new ConfigurableFakeFileSystem())
+              ->addCopyCallbacks($copy_spy)
+              ->addChmodCallbacks($chmod_operation_spy)
         );
 
         $handler();

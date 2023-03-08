@@ -66,9 +66,9 @@ final class DownloadTestRunnerCommand extends BaseCommand
           ->setDescription('Downloads latest version of testrunner.')
           ->setDefinition([
             new InputArgument(
-              'destination',
-              InputArgument::REQUIRED,
-              'Directory where the file should be downloaded.'
+                'destination',
+                InputArgument::REQUIRED,
+                'Directory where the file should be downloaded.'
             ),
             new InputOption('overwrite', 'o', InputOption::VALUE_NONE, 'Overwrite exiting file.'),
             new InputOption('no-progress', null, InputOption::VALUE_NONE, 'Do not output download progress.'),

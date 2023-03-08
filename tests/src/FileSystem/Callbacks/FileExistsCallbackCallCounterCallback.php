@@ -32,6 +32,7 @@ final class FileExistsCallbackCallCounterCallback
 
     /**
      * @var callable
+     *
      * @phpstan-var FileExistsCallback
      */
     private $callback;
@@ -40,6 +41,7 @@ final class FileExistsCallbackCallCounterCallback
      * Constructs a new object.
      *
      * @param callable $callback
+     *
      * @phpstan-param FileExistsCallback $callback
      */
     public function __construct($callback)

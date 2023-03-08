@@ -3,6 +3,10 @@
     "description": "Drupal QA end-to-end test suite",
     "license": "GPL-2.0-or-later",
     "type": "library",
+    "require": {
+        "mglaman/drupal-check": "^1.4.0",
+        "pronovix/drupal-qa": "*"
+    },
     "repositories": [
         {
             "type": "path",
@@ -12,10 +16,7 @@
             }
         }
     ],
-    "require": {
-        "pronovix/drupal-qa": "*",
-        "mglaman/drupal-check": "^1.4.0"
-    },
+    "minimum-stability": "dev",
     "config": {
         "allow-plugins": {
             "cweagans/composer-patches": true,
@@ -31,6 +32,9 @@
         "composer-normalize": {
             "indent-size": 4,
             "indent-style": "space"
+        },
+        "monorepo-helper": {
+            "enabled": false
         }
     }
 }

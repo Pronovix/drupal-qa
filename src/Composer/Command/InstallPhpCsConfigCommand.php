@@ -56,9 +56,9 @@ final class InstallPhpCsConfigCommand extends BaseCommand
           ->setDescription('Initializes PHP CodeSniffer configuration in the current directory or the given destination.')
           ->setDefinition([
             new InputArgument(
-              'destination',
-              InputArgument::OPTIONAL,
-              'Directory where the file should be symlinked instead of the current directory.'
+                'destination',
+                InputArgument::OPTIONAL,
+                'Directory where the file should be symlinked instead of the current directory.'
             ),
           ]);
     }
