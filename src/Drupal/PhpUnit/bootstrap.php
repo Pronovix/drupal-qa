@@ -94,9 +94,9 @@ function drupal_phpunit_contrib_extension_directory_roots($root = NULL) {
       continue;
     }
     $path = "$sites_path/$site";
-    $paths[] = is_dir("$path/modules") ? realpath("$path/modules") : NULL;
-    $paths[] = is_dir("$path/profiles") ? realpath("$path/profiles") : NULL;
-    $paths[] = is_dir("$path/themes") ? realpath("$path/themes") : NULL;
+    $paths[] = is_dir("$path/modules") ? realpath("$path/modules") : '';
+    $paths[] = is_dir("$path/profiles") ? realpath("$path/profiles") : '';
+    $paths[] = is_dir("$path/themes") ? realpath("$path/themes") : '';
   }
   return array_filter($paths, 'file_exists');
 }
