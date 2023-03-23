@@ -17,7 +17,6 @@
         "composer-plugin-api": "^1.1 || ^2.0",
         "behat/behat": "^3.9.0",
         "behat/mink": "^1.8",
-        "bex/behat-screenshot": "^2.0.1",
         "cweagans/composer-patches": "^1.7",
         "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
         "drupal/core-dev": "~9.5.0 || ~10.0.0",
