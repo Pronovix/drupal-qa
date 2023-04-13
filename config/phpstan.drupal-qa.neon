@@ -25,3 +25,6 @@ parameters:
       - "#.* expects string(\\|null)?, Drupal\\\\Core\\\\StringTranslation\\\\TranslatableMarkup given\\.$#"
       - "#.* expects string(\\|null)?, Drupal\\\\Component\\\\Render\\\\MarkupInterface given\\.$#"
       - "#.* expects string(\\|null)?, Drupal\\\\Component\\\\Render\\\\FormattableMarkup given\\.$#"
+      # An example:
+      # - \Drupal\dp_api_docs\Plugin\Field\FieldFormatter\ApiCategoryFilterFieldFormatter::settingsSummary()
+      - "#Method Drupal\\\\.*\\\\Plugin\\\\Field\\\\FieldFormatter\\\\.*::settingsSummary\\(\\) should return array<string> but returns array<int, Drupal\\\\Core\\\\StringTranslation\\\\TranslatableMarkup>\\.$#"
