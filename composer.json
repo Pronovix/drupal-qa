@@ -29,7 +29,7 @@
         "phpspec/prophecy-phpunit": "^2",
         "phpstan/phpstan": "^1.8.11",
         "phpstan/phpstan-deprecation-rules": "^1.0",
-        "pronovix/composer-logger": "^3.0",
+        "pronovix/composer-logger": "^4.0",
         "slevomat/coding-standard": "^8.13.4"
     },
     "require-dev": {},
