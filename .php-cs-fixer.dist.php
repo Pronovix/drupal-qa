@@ -5,8 +5,7 @@ $finder = PhpCsFixer\Finder::create()
   ->name('*.php')
   ->in([__DIR__ . '/src'])
   ->in([__DIR__ . '/tests'])
-  ->notPath('*/vendor/*')
-  ->notPath('Drupal/PhpUnit/bootstrap.php');
+  ->notPath('*/vendor/*');
 
 $config = new PhpCsFixer\Config();
 $config->setRiskyAllowed(true)

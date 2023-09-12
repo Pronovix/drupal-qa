@@ -12,4 +12,3 @@ parameters:
     - config/skeletons
   excludePaths:
     - */vendor/*
-    - src/Drupal/PhpUnit/bootstrap.php
