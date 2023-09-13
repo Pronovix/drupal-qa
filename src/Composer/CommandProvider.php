@@ -34,13 +34,10 @@ use Composer\Util\ProcessExecutor;
 use Composer\Util\RemoteFilesystem;
 use Pronovix\DrupalQa\Composer\Application\EnsurePhpStanConfigsExist;
 use Pronovix\DrupalQa\Composer\Application\PhpCsConfigInstaller;
-use Pronovix\DrupalQa\Composer\Application\ReplaceDrupalCheckBinaryWithPhpStanBridge;
 use Pronovix\DrupalQa\Composer\Application\TestRunnerDownloader;
 use Pronovix\DrupalQa\Composer\Command\DownloadTestRunnerCommand;
-use Pronovix\DrupalQa\Composer\Command\DrupalCheckPhpStanBridgeInstallerCommand;
 use Pronovix\DrupalQa\Composer\Command\EnsurePhpStanConfigsExistCommand;
 use Pronovix\DrupalQa\Composer\Command\InstallPhpCsConfigCommand;
-use Pronovix\DrupalQa\Composer\Infrastructure\BinDirPathFromComposerConfigProvider;
 use Pronovix\DrupalQa\Composer\Infrastructure\ComposerFileSystemAdapter;
 use Pronovix\DrupalQa\Composer\Infrastructure\CurrentWorkdirAsComposerProjectRoot;
 use Pronovix\DrupalQa\Composer\Infrastructure\InstalledDrupalQaPathProvider;
@@ -109,12 +106,6 @@ final class CommandProvider implements BaseCommandProvider
                     new Filesystem(),
                     $this->logger
                 ), $this->logger),
-            new DrupalCheckPhpStanBridgeInstallerCommand(
-                new ReplaceDrupalCheckBinaryWithPhpStanBridge(
-                    $qa_path_provider,
-                    new BinDirPathFromComposerConfigProvider($this->composer->getConfig()),
-                    $this->fileSystem,
-                )),
             new EnsurePhpStanConfigsExistCommand(
                 new EnsurePhpStanConfigsExist(
                     $qa_path_provider,
