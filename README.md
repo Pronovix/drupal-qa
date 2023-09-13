@@ -6,8 +6,6 @@ Set of modules and libraries and configurations that helps quality assurance in 
 * [phpcs.xml.dist](./config/phpcs.xml.dist) gets symlinked to the Composer project root if it does not exist
 * [phpstan.neon.dist](./config/skeletons/phpstan.neon.dist) and [phpstan.baseline.neon](./config/skeletons/phpstan-baseline.neon)
 gets copied to the Composer project root if they do not exist
-* **!!!** ./vendor/bin/drupal-check binary gets replaced with our custom [DrupalCheck-PHPStan bridge](./config/skeletons/drupal-check-phpstan-bridge.php)
-for the sake of backward compatibility with previous 3.x versions
 
 ## Available commands
 

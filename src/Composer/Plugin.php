@@ -37,9 +37,7 @@ use Composer\Plugin\PluginInterface;
 use Composer\Util\Filesystem;
 use Pronovix\DrupalQa\Composer\Application\EnsurePhpStanConfigsExist;
 use Pronovix\DrupalQa\Composer\Application\PhpCsConfigInstaller;
-use Pronovix\DrupalQa\Composer\Application\ReplaceDrupalCheckBinaryWithPhpStanBridge;
 use Pronovix\DrupalQa\Composer\Domain\Service\DrupalQaPathProviderInterface;
-use Pronovix\DrupalQa\Composer\Infrastructure\BinDirPathFromComposerConfigProvider;
 use Pronovix\DrupalQa\Composer\Infrastructure\ComposerFileSystemAdapter;
 use Pronovix\DrupalQa\Composer\Infrastructure\CurrentWorkdirAsComposerProjectRoot;
 use Pronovix\DrupalQa\Composer\Infrastructure\InstalledDrupalQaPathProvider;
@@ -171,12 +169,6 @@ final class Plugin implements PluginInterface, Capable, EventSubscriberInterface
                 } else {
                     $this->logger->warning(sprintf('phpcs.xml.dist already exists in %s. Configuration shipped with this package has not been symlinked.', getcwd()));
                 }
-            } catch (\Exception $e) {
-                $this->logger->error($e->getMessage());
-            }
-
-            try {
-                (new ReplaceDrupalCheckBinaryWithPhpStanBridge($qa_path_provider, new BinDirPathFromComposerConfigProvider($event->getComposer()->getConfig()), $composer_filesystem_adapter))();
             } catch (\Exception $e) {
                 $this->logger->error($e->getMessage());
             }

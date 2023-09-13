@@ -43,11 +43,4 @@ final class PluginInstallTest extends TestCase
         self::assertFileExists(self::E2E_ROOT . '/phpstan.neon.dist');
         self::assertFileExists(self::E2E_ROOT . '/phpstan-baseline.neon');
     }
-
-    public function testDrupalCheckCompatibilityBridgeWasInstalled(): void
-    {
-        $drupal_check_bin_path = self::E2E_ROOT . '/vendor/bin/drupal-check';
-        self::assertFileExists($drupal_check_bin_path);
-        self::assertFileEquals($drupal_check_bin_path, __DIR__ . '/../../../../config/skeletons/drupal-check-phpstan-bridge.php');
-    }
 }
