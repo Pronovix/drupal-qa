@@ -4,7 +4,7 @@
     "license": "GPL-2.0-or-later",
     "type": "library",
     "require": {
-        "ergebnis/composer-normalize": "^2.35.0",
+        "ergebnis/composer-normalize": "^2.38.0",
         "friendsofphp/php-cs-fixer": "^v3.14",
         "nette/neon": "^3.3"
     },
