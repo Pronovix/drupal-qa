@@ -28,7 +28,14 @@
     </rule>
 
     <!-- Authored list of SlevomatCodingStandard rules based on https://github.com/slevomat/coding-standard/tree/5.0.0 -->
-    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes"/>
+
+    <!-- Keep spaces around equal sign version of strict type enforcement. -->
+    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
+     <exclude name="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.DeclareStrictTypesMissing"/>
+     <properties>
+      <property name="spacesCountAroundEqualsSign" value="1"/>
+     </properties>
+    </rule>
     <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes.IncorrectWhitespaceBeforeDeclare">
         <severity>0</severity>
     </rule>
@@ -118,5 +125,4 @@
         </properties>
     </rule>
     <rule ref="Squiz.Strings.DoubleQuoteUsage.NotRequired" />
-
 </ruleset>
