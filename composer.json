@@ -45,11 +45,6 @@
             "Pronovix\\DrupalQa\\Tests\\": "tests/src"
         }
     },
-    "conflict": {
-        "behat/mink": ">=v1.11.0",
-        "behat/mink-browserkit-driver": ">=v2.2.0",
-        "behat/mink-selenium2-driver": ">=v1.7.0"
-    },
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true,
