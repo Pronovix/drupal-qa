@@ -68,9 +68,8 @@
         },
         "patches": {
             "drupal/core": {
-                "Fix 'Undefined index: value' when database connection issue occurs in tests [#3163925]": "https://git.drupalcode.org/project/drupal/-/merge_requests/212.diff",
-                "copy() can fail in FunctionalTestSetupTrait::prepareSettings() because of a race condition  [#3191369]": "https://git.drupalcode.org/project/drupal/-/merge_requests/218.diff",
-                "file_scan_ignore_directories is ignored in kernel tests [#3190974]": "https://git.drupalcode.org/project/drupal/-/commit/92300d75eeb03105408f96d5064bd641168d6a82.diff"
+                "copy() can fail in FunctionalTestSetupTrait::prepareSettings() because of a race condition  [#3191369]": "https://patches.pronovix.net/drupal_core-copy_can_fail_in_FunctionalTestSetupTrail_because_of_race_condition-3191369_MR218_18bdd4d4.patch",
+                "file_scan_ignore_directories is ignored in kernel tests [#3190974]": "https://patches.pronovix.net/drupal_core-file_scan_ignore_directories_is_ignored_in_kernel_tests-3190974_MR206_4231749f.patch"
             }
         }
     },
