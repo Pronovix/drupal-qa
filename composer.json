@@ -68,7 +68,7 @@
         },
         "patches": {
             "drupal/core": {
-                "copy() can fail in FunctionalTestSetupTrait::prepareSettings() because of a race condition  [#3191369]": "https://patches.pronovix.net/drupal_core-copy_can_fail_in_FunctionalTestSetupTrail_because_of_race_condition-3191369_MR218_18bdd4d4.patch",
+                "copy() can fail in FunctionalTestSetupTrait::prepareSettings() because of a race condition  [#3191369]": "https://patches.pronovix.net/drupal_core-copy_can_fail_in_FunctionalTestSetupTrail_because_of_race_condition-3191369_MR11598_f6ae8750.patch",
                 "file_scan_ignore_directories is ignored in kernel tests [#3190974]": "https://patches.pronovix.net/drupal_core-file_scan_ignore_directories_is_ignored_in_kernel_tests-3190974_MR206_4231749f.patch"
             }
         }
