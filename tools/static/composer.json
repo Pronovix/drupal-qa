@@ -8,7 +8,7 @@
         "drupal/core is a dev requirement because this library depends on code from that"
     ],
     "require": {
-        "composer/composer": "^2.0",
+        "composer/composer": "^2.8",
         "drupal/core": "^11.1.8",
         "phpstan/phpstan": "^1.8.11",
         "phpstan/phpstan-deprecation-rules": "^1.0"
