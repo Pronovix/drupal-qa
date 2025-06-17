@@ -58,7 +58,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "4.x-dev"
+            "dev-master": "5.x-dev"
         },
         "class": "Pronovix\\DrupalQa\\Composer\\Plugin",
         "composer-exit-on-patch-failure": true,
