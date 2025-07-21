@@ -9,7 +9,7 @@
     ],
     "require": {
         "composer/composer": "^2.8",
-        "drupal/core": "^11.1.8",
+        "drupal/core": "^11.2.3",
         "phpstan/phpstan": "^1.8.11",
         "phpstan/phpstan-deprecation-rules": "^1.0"
     },
