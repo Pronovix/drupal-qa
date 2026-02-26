@@ -33,6 +33,9 @@
         "slevomat/coding-standard": "^8.13.4"
     },
     "require-dev": {},
+    "conflict": {
+        "phpdocumentor/reflection-docblock": ">=6.0.0"
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "autoload": {
