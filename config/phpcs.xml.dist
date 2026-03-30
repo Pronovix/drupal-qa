@@ -105,13 +105,19 @@
     <rule ref="SlevomatCodingStandard.Namespaces.FullyQualifiedClassNameInAnnotation"/>
     <rule ref="SlevomatCodingStandard.Commenting.ForbiddenAnnotations">
         <properties>
-            <property name="forbiddenAnnotations" type="array" value="@author,@package,@created"/>
+            <property name="forbiddenAnnotations" type="array">
+                <element value="@author"/>
+                <element value="@package"/>
+                <element value="@created"/>
+            </property>
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.Commenting.ForbiddenComments">
         <properties>
             <!-- This unifies usage of {@inheritdoc} -->
-            <property name="forbiddenCommentPatterns" type="array" value="/^\{@inheritDoc\}$/" />
+            <property name="forbiddenCommentPatterns" type="array">
+                <element value="/^\{@inheritDoc\}$/"/>
+            </property>
         </properties>
     </rule>
     <rule ref="SlevomatCodingStandard.Commenting.EmptyComment"/>
@@ -121,7 +127,10 @@
     <rule ref="SlevomatCodingStandard.Namespaces.UnusedUses">
         <properties>
             <!-- This unifies usage of {@inheritdoc} -->
-            <property name="ignoredAnnotationNames" type="array" value="@file,@group" />
+            <property name="ignoredAnnotationNames" type="array">
+                <element value="@file"/>
+                <element value="@group"/>
+            </property>
         </properties>
     </rule>
     <rule ref="Squiz.Strings.DoubleQuoteUsage.NotRequired" />
